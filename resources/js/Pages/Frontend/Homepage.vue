@@ -1,13 +1,15 @@
 <template>
+    <Head title="Главная страница" />
     <Header />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Header from '@/Components/Frontend/Header.vue';
+import { Head } from "@inertiajs/vue3";
 
 export default defineComponent({
-    components: { Header }
+    components: { Head, Header }
 });
 </script>
 

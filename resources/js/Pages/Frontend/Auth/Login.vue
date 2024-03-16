@@ -1,4 +1,5 @@
 <template>
+    <Head title="Войти в аккаунт"/>
     <Header />
 
     <div class="container">
@@ -44,11 +45,12 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { Head } from "@inertiajs/vue3";
 import Header from '@/Components/Frontend/Header.vue';
 import { useForm } from '@inertiajs/vue3'
 
 export default defineComponent({
-    components: { Header },
+    components: { Head, Header },
     setup() {
         const form = useForm({
             email: null as String | null,

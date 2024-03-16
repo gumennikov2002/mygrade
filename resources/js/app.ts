@@ -12,4 +12,5 @@ createInertiaApp({
             .use(plugin)
             .mount(el)
     },
+    title: title => 'MyGrade: ' + title
 });
