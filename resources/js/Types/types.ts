@@ -15,3 +15,10 @@ export type UserLoginForm = {
     email: string,
     password: string
 }
+
+export type UserUpdateForm = {
+    name: string,
+    username: string,
+    email: string,
+    password: string | null
+}

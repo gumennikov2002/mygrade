@@ -1,7 +1,7 @@
 <template>
     <Header />
 
-    <div class="container">
+    <div class="container bg-white py-5 p-5 rounded-3 shadow-sm">
         <slot />
     </div>
 </template>

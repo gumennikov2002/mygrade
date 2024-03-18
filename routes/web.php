@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Frontend\HomepageController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\RegisterController;
@@ -26,8 +27,13 @@ Route::prefix('login')->name('login.')->group(function() {
 Route::post('logout', [LoginController::class, 'destroy'])
     ->name('logout');
 
-Route::prefix('admin-panel')->name('admin-panel.')->group(function() {
-    Route::get('/', DashboardController::class)
-        ->name('dashboard');
-});
+Route::get('/dashboard', DashboardController::class)
+    ->name('dashboard');
 
+
+Route::prefix('profile')->name('profile.')->group(function() {
+    Route::get('/', [ProfileController::class, 'index'])
+        ->name('index');
+    Route::put('/', [ProfileController::class, 'update'])
+        ->name('update');
+});

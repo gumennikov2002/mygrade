@@ -15,7 +15,9 @@
                     {{ user.name + '@' + user.username }}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-light bg-brand-dark">
-                    <li><a class="dropdown-item text-light" href="#">Профиль</a></li>
+                    <li>
+                        <Link class="dropdown-item text-light" href="/profile">Профиль</Link>
+                    </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
                         <Link class="dropdown-item text-danger" href="/logout" as="button" method="post">Выйти</Link>
