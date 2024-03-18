@@ -1,11 +1,9 @@
 <template>
-    <h1>Dashboard</h1>
+    <DefaultLayout>
+        <h1>Dashboard</h1>
+    </DefaultLayout>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-
-});
+<script setup lang="ts">
+import DefaultLayout from "../../Layout/DefaultLayout.vue";
 </script>

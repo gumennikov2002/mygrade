@@ -1,8 +1,6 @@
 <template>
     <Head title="Регистрация"/>
-    <Header />
-
-    <div class="container">
+    <DefaultLayout>
         <div class="row">
             <div class="col-6">
                 <div class="d-flex align-items-center justify-content-center">
@@ -59,28 +57,20 @@
                     </form>
                 </div>
             </div>
-            </div>
         </div>
-
+    </DefaultLayout>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script setup lang="ts">
 import { Head } from "@inertiajs/vue3";
-import Header from "../../../Components/Header/Header.vue";
+import DefaultLayout from "../../../Layout/DefaultLayout.vue";
 import { useForm } from '@inertiajs/vue3'
+import { UserRegistrationForm } from "../../../Types/types";
 
-export default defineComponent({
-    components: { Head, Header },
-    setup() {
-        const form = useForm({
-            email: null as String | null,
-            name: null as String | null,
-            password: null as String | null,
-            password_confirmation: null as String | null
-        })
-
-        return { form }
-    }
-});
+const form = useForm<UserRegistrationForm>({
+    email: null as String | null,
+    name: null as String | null,
+    password: null as String | null,
+    password_confirmation: null as String | null
+})
 </script>

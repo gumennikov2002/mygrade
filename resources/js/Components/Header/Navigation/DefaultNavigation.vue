@@ -13,23 +13,16 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, ref } from 'vue';
+<script setup lang="ts">
+import { computed, ref } from 'vue';
 import { Link, usePage } from "@inertiajs/vue3";
 import { HeaderNavigationBarMenuItem } from "../../../Types/types.ts";
 
-export default defineComponent({
-    components: { Link },
-    setup() {
-        const page = usePage();
-        const user = computed(() => page.props.user);
+const page = usePage();
+const user = computed(() => page.props.user);
 
-        const menuItems = ref<HeaderNavigationBarMenuItem[]>([
-            { title: 'Ссылка 1', url: '#', icon: null },
-            { title: 'Ссылка 2', url: '#', icon: null },
-        ]);
-
-        return { user, menuItems }
-    },
-});
+const menuItems = ref<HeaderNavigationBarMenuItem[]>([
+    { title: 'Ссылка 1', url: '#', icon: null },
+    { title: 'Ссылка 2', url: '#', icon: null },
+]);
 </script>

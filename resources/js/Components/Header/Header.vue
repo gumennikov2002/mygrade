@@ -17,19 +17,12 @@
     </nav>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, ref } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
 import { Link, usePage } from "@inertiajs/vue3";
 import UserNavigation from "./Navigation/UserNavigation.vue";
 import DefaultNavigation from "./Navigation/DefaultNavigation.vue";
 
-export default defineComponent({
-    components: { Link, UserNavigation, DefaultNavigation },
-    setup() {
-        const page = usePage();
-        const user = computed(() => page.props.user);
-
-        return { user }
-    },
-});
+const page = usePage();
+const user = computed(() => page.props.user);
 </script>

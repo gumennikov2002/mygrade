@@ -3,3 +3,15 @@ export type HeaderNavigationBarMenuItem = {
     title: string,
     url: string
 }
+
+export type UserRegistrationForm = {
+    name: string,
+    email: string,
+    password: string,
+    password_confirmation: string
+}
+
+export type UserLoginForm = {
+    email: string,
+    password: string
+}

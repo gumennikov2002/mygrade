@@ -1,8 +1,6 @@
 <template>
-    <Head title="Войти в аккаунт"/>
-    <Header />
-
-    <div class="container">
+    <Head title="Войти в аккаунт" />
+    <DefaultLayout>
         <div class="row">
             <div class="col-6">
                 <div class="d-flex align-items-center justify-content-center">
@@ -38,26 +36,18 @@
                     </form>
                 </div>
             </div>
-            </div>
         </div>
-
+    </DefaultLayout>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script setup lang="ts">
+import DefaultLayout from "../../../Layout/DefaultLayout.vue";
+import { useForm } from "@inertiajs/vue3";
 import { Head } from "@inertiajs/vue3";
-import Header from "../../../Components/Header/Header.vue";
-import { useForm } from '@inertiajs/vue3'
+import { UserLoginForm } from "../../../Types/types";
 
-export default defineComponent({
-    components: { Head, Header },
-    setup() {
-        const form = useForm({
-            email: null as String | null,
-            password: null as String | null
-        })
-
-        return { form }
-    }
-});
+const form = useForm<UserLoginForm>({
+    email: null as String | null,
+    password: null as String | null
+})
 </script>
