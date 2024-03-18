@@ -21,7 +21,7 @@ class ProfileController extends Controller
         $data = UpdateUserData::from($request)
             ->toArray();
 
-        if ($request->has('password') && $request->get('password')) {
+        if ($request->filled('password')) {
             $data['password'] = bcrypt($request->get('password'));
         } else {
             unset($data['password']);
@@ -29,7 +29,6 @@ class ProfileController extends Controller
 
         $user->update($data);
 
-        return redirect()->back()
-            ->with('success', 'Профиль успешно обновлен');
+        return redirect()->back();
     }
 }
