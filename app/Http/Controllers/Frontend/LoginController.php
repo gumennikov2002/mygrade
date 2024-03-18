@@ -6,16 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
-use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
 
 class LoginController extends Controller
 {
     public function index(): InertiaResponse
     {
-        return Inertia::render('Frontend/Auth/Login');
+        return inertia('Frontend/Auth/Login');
     }
 
     /**
