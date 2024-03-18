@@ -27,7 +27,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:2', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'username' => ['required', 'string', 'max:255', 'unique:users,username,' . $user->id],
+            'username' => ['required', 'string', 'max:255', 'unique:users,username,' . $user->id, 'regex:/^([a-zA-Z][a-zA-Z0-9]*|[a-zA-Z][a-zA-Z0-9]*_[a-zA-Z0-9]+)+$/'],
             'password' => ['nullable', 'string', 'min:8'],
         ];
     }
@@ -47,10 +47,21 @@ class UpdateUserRequest extends FormRequest
             'email.unique' => 'Этот адрес электронной почты уже используется',
             'email.email' => 'Неверный адрес электронной почты',
             'username.required' => 'Поле не может быть пустым',
+            'username.regex' => "Разрешенный формат: {$this->getValidUsernameFormats()}",
             'username.unique' => 'Это имя пользователя уже используется',
             'username.max' => 'Максимальная длина имени пользователя :max символов',
-            'new_password.min' => 'Минимальная длина пароля :min символов',
-            'old_password.min' => 'Минимальная длина пароля :min символов',
+            'password.min' => 'Минимальная длина пароля :min символов',
         ];
+    }
+
+    protected function getValidUsernameFormats(): string
+    {
+        $username = request()->get('username');
+        $snake = str($username)->snake();
+        $camel = str($username)->camel();
+        $pascal = ucfirst($camel);
+        $formats = compact('snake', 'camel', 'pascal');
+
+        return implode(', ', $formats);
     }
 }
