@@ -5,7 +5,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Header from '@/Components/Frontend/Header.vue';
+import Header from "../../Components/Header/Header.vue";
 import { Head } from "@inertiajs/vue3";
 
 export default defineComponent({

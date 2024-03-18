@@ -1,2 +1,40 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 @import 'bootstrap.css';
+@import '../lineicons/lineicons.css';
+
+body {
+    background-color: #eaeaea;
+}
+
+.bg-brand-dark {
+    background-color: #1a1a1a;
+}
+
+.text-brand-dark {
+    color: #1a1a1a;
+}
+
+.bg-brand-violet {
+    background-color: #6c5b7b;
+}
+
+.text-brand-violet {
+    color: #6c5b7b;
+}
+
+.bg-brand-pink {
+    background-color: #c06c84;
+}
+
+.text-brand-pink {
+    color: #c06c84;
+}
+
+.navbar-toggler,
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
