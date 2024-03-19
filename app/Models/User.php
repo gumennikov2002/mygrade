@@ -33,8 +33,10 @@ class User extends Authenticatable
         parent::boot();
 
         static::creating(function (self $user) {
-            $lastUserId = User::query()->max('id') ?? 0;
-            $user->username = 'user' . $lastUserId + 1;
+            if (!$user->username) {
+                $lastUserId = User::query()->max('id') ?? 0;
+                $user->username = 'user' . $lastUserId + 1;
+            }
         });
     }
 }

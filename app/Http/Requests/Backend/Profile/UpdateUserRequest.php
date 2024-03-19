@@ -27,7 +27,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:2', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'username' => ['required', 'string', 'max:255', 'unique:users,username,' . $user->id, 'regex:/^([a-zA-Z][a-zA-Z0-9]*|[a-zA-Z][a-zA-Z0-9]*_[a-zA-Z0-9]+)+$/'],
+            'username' => ['required', 'string', 'max:255', 'unique:users,username,' . $user->id, 'regex:/^([a-zA-Z][a-zA-Z0-9\.]*|[a-zA-Z][a-zA-Z0-9]*_[a-zA-Z0-9]+)+$/'],
             'password' => ['nullable', 'string', 'min:8'],
         ];
     }
