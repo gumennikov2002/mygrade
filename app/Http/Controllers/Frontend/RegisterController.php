@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Contracts\UserService;
 use App\Data\Frontend\Auth\RegisterUserData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\Auth\RegisterRequest;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 
@@ -16,10 +16,10 @@ class RegisterController extends Controller
         return inertia('Frontend/Auth/Register');
     }
 
-    public function store(RegisterRequest $request): RedirectResponse
+    public function store(RegisterRequest $request, UserService $userService): RedirectResponse
     {
-        $user = User::query()->create(
-            RegisterUserData::from($request)->toArray()
+        $user = $userService->register(
+            RegisterUserData::from($request)
         );
         auth()->login($user);
 

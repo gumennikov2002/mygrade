@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0ac9c0e562109ccbb95ebd71b69cb39d",
+    "content-hash": "e85b1841509952fe2fbaab30fd5fd4f2",
     "packages": [
         {
             "name": "amphp/amp",
@@ -7393,6 +7393,82 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "wendelladriel/laravel-lift",
+            "version": "v0.14.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WendellAdriel/laravel-lift.git",
+                "reference": "32a3aad2d3f307fa52323e00ada7773d78920752"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WendellAdriel/laravel-lift/zipball/32a3aad2d3f307fa52323e00ada7773d78920752",
+                "reference": "32a3aad2d3f307fa52323e00ada7773d78920752",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^10.0|^11.0",
+                "illuminate/support": "^10.0|^11.0",
+                "illuminate/validation": "^10.0|^11.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "larastan/larastan": "^2.0",
+                "laravel/pint": "^1.14",
+                "orchestra/testbench": "^8.0|^9.0",
+                "pestphp/pest": "^2.0",
+                "pestphp/pest-plugin-faker": "^2.0",
+                "phpstan/phpstan": "^1.10"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "WendellAdriel\\Lift\\Providers\\LiftServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "WendellAdriel\\Lift\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Wendell Adriel",
+                    "email": "wendelladriel.ti@gmail.com"
+                }
+            ],
+            "description": "Take your Eloquent Models to the next level",
+            "keywords": [
+                "attributes",
+                "casts",
+                "eloquent",
+                "laravel",
+                "model",
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/WendellAdriel/laravel-lift/issues",
+                "source": "https://github.com/WendellAdriel/laravel-lift"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/wendelladriel",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/WendellAdriel",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-03-13T13:12:46+00:00"
         }
     ],
     "packages-dev": [
