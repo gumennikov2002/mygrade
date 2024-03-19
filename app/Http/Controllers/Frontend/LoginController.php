@@ -24,7 +24,7 @@ class LoginController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-        return redirect()->route('homepage');
+        return redirect()->route('dashboard');
     }
 
     public function destroy(Request $request): RedirectResponse
@@ -33,6 +33,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('homepage');
+        return redirect()->route('dashboard');
     }
 }
