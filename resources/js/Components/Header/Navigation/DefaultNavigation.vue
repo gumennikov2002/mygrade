@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { Link, usePage } from "@inertiajs/vue3";
-import { HeaderNavigationBarMenuItem } from "../../../Types/types.ts";
+import { HeaderNavigationBarMenuItem } from "../../../Types/types";
 import NavigationMenuItems from "./NavigationMenuItems.vue";
 
 const page = usePage();

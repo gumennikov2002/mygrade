@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Data\UserData;
+use App\Data\User\UserData;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 

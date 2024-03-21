@@ -18,8 +18,8 @@ class Portfolio extends Model
     #[PrimaryKey]
     public int $id;
 
-    #[Config(fillable: true)]
-    public int $user_id;
+    #[Config(fillable: true, column: 'user_id')]
+    public int $userId;
 
     #[Config(cast: 'boolean', fillable: true, column: 'is_active')]
     public bool $isActive;

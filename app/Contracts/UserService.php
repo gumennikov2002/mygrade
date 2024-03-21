@@ -2,8 +2,8 @@
 
 namespace App\Contracts;
 
-use App\Data\Backend\UpdateUserData;
-use App\Data\Frontend\Auth\RegisterUserData;
+use App\Data\Auth\RegisterUserData;
+use App\Data\User\UpdateUserData;
 use App\Models\User;
 
 interface UserService
