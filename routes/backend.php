@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\PortfolioController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Middleware\Authenticate;
@@ -21,4 +22,14 @@ Route::middleware([Authenticate::class])->group(function() {
         Route::put('/', [ProfileController::class, 'update'])
             ->name('update');
     });
+
+    Route::prefix('portfolios')->name('portfolios.')->group(function() {
+        Route::get('/', [PortfolioController::class, 'listPage'])
+            ->name('list-page');
+        Route::get('/create', [PortfolioController::class, 'createPage'])
+            ->name('create-page');
+        Route::get('/update/{portfolio}', [PortfolioController::class, 'updatePage'])
+            ->name('update-page');
+    });
+    Route::resource('portfolios', PortfolioController::class)->only(['store', 'update', 'destroy']);
 });

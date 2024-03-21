@@ -32,8 +32,7 @@ const user = computed(() => page.props.user);
 
 const menuItems = ref<HeaderNavigationBarMenuItem[]>([
     { title: 'Дашборд', url: '/dashboard', icon: 'dashboard' },
-    { title: 'Портфолио', url: '#', icon: 'briefcase' },
-    { title: 'Сообщения', url: '#', icon: 'envelope' },
+    { title: 'Портфолио', url: '/portfolios', icon: 'briefcase' },
     { title: 'Заявки', url: '#', icon: 'support' },
 ])
 </script>

@@ -9,8 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use WendellAdriel\Lift\Attributes\Config;
 use WendellAdriel\Lift\Attributes\PrimaryKey;
+use WendellAdriel\Lift\Attributes\Relations\HasMany;
 use WendellAdriel\Lift\Lift;
 
+#[HasMany(Portfolio::class)]
 class User extends Authenticatable
 {
     use Lift, HasApiTokens, HasFactory, Notifiable;

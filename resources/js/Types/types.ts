@@ -22,3 +22,18 @@ export type UserUpdateForm = {
     email: string,
     password: string | null
 }
+
+export type Portfolio = {
+    id: number | null,
+    isActive: boolean,
+    slug: string,
+    title: string,
+    description: string | null,
+    createdAt: string | null,
+    updatedAt: string | null
+}
+
+export type Breadcrumb = {
+    title: string,
+    url: string | null
+}

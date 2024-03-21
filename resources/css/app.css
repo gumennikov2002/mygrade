@@ -38,3 +38,16 @@ body {
     border: none;
     box-shadow: none;
 }
+
+.btn-brand-pink {
+    background-color: #c06c84;
+    border-color: #c06c84;
+    color: #ffffff;
+}
+
+.btn-brand-pink:hover,
+.btn-brand-pink:focus {
+    background-color: #a0516c;
+    border-color: #a0516c;
+    color: #ffffff;
+}
