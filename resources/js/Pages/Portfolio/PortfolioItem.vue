@@ -13,7 +13,7 @@
             <div class="form-check form-switch mb-3">
                 <input
                     v-model="form.isActive"
-                    class="form-check-input bg-success shadow-sm border-light"
+                    class="form-check-input shadow-sm border-light"
                     type="checkbox"
                     id="isActive"
                     checked
