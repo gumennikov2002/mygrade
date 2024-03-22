@@ -5,6 +5,7 @@ namespace App\Contracts;
 use App\Data\Portfolio\SavePortfolioData;
 use App\Models\Portfolio;
 use App\Models\User;
+use Illuminate\Pagination\AbstractPaginator;
 
 interface PortfolioService
 {
@@ -36,4 +37,17 @@ interface PortfolioService
      * @return void
      */
     public function delete(Portfolio $portfolio): void;
+
+    /**
+     * Get paginated portfolios by owner(user).
+     *
+     * @param User $owner
+     * @param int $perPage
+     * @param array<string, mixed> $filters
+     * @param string $orderBy
+     * @param string $orderDirection
+     *
+     * @return AbstractPaginator<Portfolio>
+     */
+    public function getPaginatedByUser(User $owner, int $perPage = 20, array $filters = [], string $orderBy = 'id', string $orderDirection = 'desc'): AbstractPaginator;
 }

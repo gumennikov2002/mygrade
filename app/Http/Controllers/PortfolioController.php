@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Contracts\PortfolioService;
 use App\Data\Portfolio\PortfolioData;
 use App\Data\Portfolio\SavePortfolioData;
+use App\Enums\PortfolioFilter;
 use App\Http\Requests\Portfolio\SavePortfolioRequest;
 use App\Models\Portfolio;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Inertia\Response;
 
 class PortfolioController extends Controller
@@ -16,16 +18,13 @@ class PortfolioController extends Controller
         protected PortfolioService $service
     ) {}
 
-    public function listPage(): Response
+    public function listPage(Request $request): Response
     {
-        $portfolios = auth()->user()
-            ->portfolios()
-            ->orderBy('id', 'desc')
-            ->get();
+        $user = $request->user();
+        $filters = $request->only(PortfolioFilter::unpackValues());
+        $portfolios = $this->service->getPaginatedByUser($user, filters: $filters);
 
-        return inertia('Portfolio/PortfolioList', [
-            'portfolios' => PortfolioData::collect($portfolios),
-        ]);
+        return inertia('Portfolio/PortfolioList', compact('portfolios', 'filters'));
     }
 
     public function createPage(): Response

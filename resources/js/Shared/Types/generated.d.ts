@@ -42,3 +42,7 @@ email: string;
 name: string;
 };
 }
+declare namespace App.Enums {
+export type PortfolioFilter = 'status' | 'search';
+export type PortfolioStatusFilter = 'all' | 'active' | 'inactive';
+}

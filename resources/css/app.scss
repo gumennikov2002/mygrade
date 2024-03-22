@@ -42,8 +42,15 @@ body {
 
 .form-check-input:checked {
     background-color: $brand-pink;
+    border-color: $brand-pink;
 }
 
 .form-check-input:focus {
+    box-shadow: 0 0 4px 4px $brand-pink;
     border-color: $brand-pink;
+}
+
+.page-item .active {
+    background-color: var(--bs-secondary) !important;
+    border-color: var(--bs-secondary) !important;
 }

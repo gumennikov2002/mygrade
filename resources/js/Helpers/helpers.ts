@@ -1,3 +1,5 @@
+import { PaginationLink } from "../Types/types";
+
 export const formatDate = (date: string): string => {
     return new Date(date).toLocaleDateString('ru-RU', {
         day: 'numeric',
@@ -89,4 +91,18 @@ export const slugify = (text: string): string => {
         .replace(/\-\-+/g, '-')
         .replace(/^-+/, '')
         .replace(/-+$/, '');
+}
+
+export const getPaginationLinkClass = (link: PaginationLink): string => {
+    let classes: Array<string> = ['page-link', 'text-dark']
+
+    if (link.active) {
+        classes.push('text-white', 'active')
+    }
+
+    if (!link.url) {
+        classes.push('disabled')
+    }
+
+    return classes.join(' ');
 }

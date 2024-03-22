@@ -3,16 +3,26 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use WendellAdriel\Lift\Attributes\Config;
 use WendellAdriel\Lift\Attributes\PrimaryKey;
-use WendellAdriel\Lift\Attributes\Relations\HasMany;
+use WendellAdriel\Lift\Attributes\Relations\HasMany as LiftHasMany;
 use WendellAdriel\Lift\Lift;
 
-#[HasMany(Portfolio::class)]
+/**
+ * User Model
+ *
+ * @property Collection<Portfolio> $portfolios
+ *
+ * @method HasMany portfolios()
+ * @method static HasMany portfolios()
+ */
+#[LiftHasMany(Portfolio::class)]
 class User extends Authenticatable
 {
     use Lift, HasApiTokens, HasFactory, Notifiable;
