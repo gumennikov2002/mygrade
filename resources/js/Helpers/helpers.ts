@@ -3,7 +3,7 @@ import { PaginationLink } from "../Types/types";
 export const formatDate = (date: string): string => {
     return new Date(date).toLocaleDateString('ru-RU', {
         day: 'numeric',
-        month: 'long',
+        month: 'numeric',
         year: 'numeric',
         hour: 'numeric',
         minute: 'numeric',

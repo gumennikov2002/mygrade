@@ -50,15 +50,17 @@
                     <tbody>
                     <tr v-for="item in portfolios.data">
                         <th scope="row" class="text-center">{{ item.id }}</th>
-                        <td v-html="item.title" />
-                        <td v-html="item.description" />
+                        <td v-html="textHighlight(item.title)" />
+                        <td>
+                            <div class="description-truncate" v-html="textHighlight(item.description)" />
+                        </td>
                         <td v-html="formatDate(item.createdAt)" />
                         <td v-html="formatDate(item.updatedAt)" />
                         <td class="text-center">
                             <i v-if="item.isActive" class="lni lni-checkmark-circle text-success fs-5 shadow-sm rounded-5"></i>
                             <i v-else class="lni lni-ban text-secondary fs-5 shadow-sm"></i>
                         </td>
-                        <td style="width: 200px">
+                        <td style="width: 150px">
                             <div class="d-flex gap-3 justify-content-center">
                                 <Link href="#">
                                     <i class="bg-white shadow-sm text-brand-dark p-2 rounded-3 lni lni-clipboard"></i>
@@ -103,7 +105,7 @@
 import { defineProps, PropType, ref, watch } from "vue";
 import { Head, Link, router } from "@inertiajs/vue3";
 import DefaultLayout from "../../Layout/DefaultLayout.vue";
-import { formatDate, getPaginationLinkClass } from "../../Helpers/helpers";
+import { formatDate, getPaginationLinkClass, containsText } from "../../Helpers/helpers";
 import PortfolioStatusFilter = App.Enums.PortfolioStatusFilter;
 import { PortfolioDataPaginated } from "../../Types/types";
 import PortfolioFilter = App.Enums.PortfolioFilter;
@@ -141,7 +143,31 @@ const useFilter = (filter: PortfolioFilter, value: any): void => {
     router.get('/portfolios', data, options)
 }
 
+const textHighlight = (text: string): string => {
+    const searchingValue = search.value;
+
+    if (!searchingValue || !searchingValue.trim()) {
+        return text;
+    }
+
+    // Создаем регулярное выражение для поиска текста с игнорированием регистра
+    const regex = new RegExp(searchingValue, 'gi');
+
+    return text?.replace(regex, (match) => `
+        <span class="shadow-sm bg-brand-pink px-1 rounded-3 text-white">${match}</span>
+    `);
+};
+
 watch(search, value => useFilter('search', value));
 watch(statusFilter, value => useFilter('status', value));
 
 </script>
+
+<style lang="scss" scoped>
+.description-truncate {
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style>
