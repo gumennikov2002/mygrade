@@ -2,13 +2,13 @@
 
 namespace App\Enums;
 
-use App\Traits\Enums\EnumWithUnpackingValues;
+use App\Traits\Enums\AsArray;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript]
 enum PortfolioFilter: string
 {
-    use EnumWithUnpackingValues;
+    use AsArray;
 
     case STATUS = 'status';
 

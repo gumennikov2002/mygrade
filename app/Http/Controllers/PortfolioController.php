@@ -21,7 +21,7 @@ class PortfolioController extends Controller
     public function listPage(Request $request): Response
     {
         $user = $request->user();
-        $filters = $request->only(PortfolioFilter::unpackValues());
+        $filters = $request->only(PortfolioFilter::asValuesArray());
         $portfolios = $this->service->getPaginatedByUser($user, filters: $filters);
 
         return inertia('Portfolio/PortfolioList', compact('portfolios', 'filters'));
