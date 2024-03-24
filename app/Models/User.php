@@ -56,7 +56,12 @@ class User extends Authenticatable
 
     public static function suggestUsername(): string
     {
-        $lastUserId = User::query()->max('id') ?? 0;
-        return 'user' . $lastUserId + 1;
+        $username = 'user'.str()->random(10);
+
+        if (self::query()->where('username', $username)->exists()) {
+            return self::suggestUsername();
+        }
+
+        return $username;
     }
 }

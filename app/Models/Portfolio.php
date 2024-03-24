@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PortfolioStatusFilter;
-use App\Traits\Filters\SearchFilter;
+use App\Traits\Filters\PortfolioFilters;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,7 +28,7 @@ use WendellAdriel\Lift\Lift;
 #[BelongsTo(User::class)]
 class Portfolio extends Model
 {
-    use Lift, HasFactory, SearchFilter;
+    use Lift, HasFactory, PortfolioFilters;
 
     #[PrimaryKey]
     public int $id;
@@ -53,13 +53,4 @@ class Portfolio extends Model
 
     #[Config(cast: 'datetime', column: 'updated_at')]
     public ?Carbon $updatedAt;
-
-    public function scopeFilterStatus(Builder $query, PortfolioStatusFilter $status): void
-    {
-        if ($status === PortfolioStatusFilter::ALL) {
-            return;
-        }
-
-        $query->where('is_active', $status === PortfolioStatusFilter::ACTIVE);
-    }
 }
