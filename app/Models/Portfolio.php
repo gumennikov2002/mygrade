@@ -53,4 +53,9 @@ class Portfolio extends Model
 
     #[Config(cast: 'datetime', column: 'updated_at')]
     public ?Carbon $updatedAt;
+
+    public function checkIfOwner(User $user): bool
+    {
+        return $user->id === $this->userId;
+    }
 }

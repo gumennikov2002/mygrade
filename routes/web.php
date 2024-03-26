@@ -50,7 +50,9 @@ Route::middleware([Authenticate::class])->group(function() {
             ->name('list-page');
         Route::get('/create', [PortfolioController::class, 'createPage'])
             ->name('create-page');
+
         Route::get('/update/{portfolio}', [PortfolioController::class, 'updatePage'])
+            ->middleware('can:update,portfolio')
             ->name('update-page');
     });
     Route::resource('portfolios', PortfolioController::class)->only(['store', 'update', 'destroy']);
