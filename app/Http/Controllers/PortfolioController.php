@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Contracts\PortfolioService;
 use App\Data\Portfolio\PortfolioData;
 use App\Data\Portfolio\SavePortfolioData;
+use App\Data\Service\ServiceData;
 use App\Enums\PortfolioFilter;
-use App\Http\Requests\Portfolio\SavePortfolioRequest;
 use App\Models\Portfolio;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Response;
 
 class PortfolioController extends Controller
@@ -18,7 +19,7 @@ class PortfolioController extends Controller
         protected PortfolioService $service
     ) {}
 
-    public function listPage(Request $request): Response
+    public function index(Request $request): Response
     {
         $user = $request->user();
         $filters = $request->only(PortfolioFilter::asValuesArray());
@@ -27,36 +28,43 @@ class PortfolioController extends Controller
         return inertia('Portfolio/PortfolioList', compact('portfolios', 'filters'));
     }
 
-    public function createPage(): Response
+    public function create(): Response
     {
         return inertia('Portfolio/PortfolioItem');
     }
 
-    public function updatePage(Portfolio $portfolio): Response
+    public function edit(Portfolio $portfolio): Response
     {
-        return inertia('Portfolio/PortfolioItem', [
-            'portfolio' => PortfolioData::from($portfolio),
-        ]);
+        Gate::authorize('update', $portfolio);
+
+        $services = ServiceData::collect(
+            $portfolio->services()
+                ->orderBy('sort_order')
+                ->get()
+        );
+        $portfolio = PortfolioData::from($portfolio);
+
+        return inertia('Portfolio/PortfolioItem', compact('portfolio', 'services'));
     }
 
-    public function store(SavePortfolioRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $this->service->create(
             $request->user(),
             SavePortfolioData::from($request)
         );
 
-        return redirect()->route('portfolios.list-page');
+        return redirect()->route('portfolios.index');
     }
 
-    public function update(Portfolio $portfolio, SavePortfolioRequest $request): RedirectResponse
+    public function update(Portfolio $portfolio, Request $request): RedirectResponse
     {
         $this->service->update(
             $portfolio,
             SavePortfolioData::from($request)
         );
 
-        return redirect()->route('portfolios.update-page', [
+        return redirect()->route('portfolios.edit', [
             'portfolio' => $portfolio->id
         ]);
     }

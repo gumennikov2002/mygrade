@@ -11,19 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('portfolios', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('portfolio_id');
             $table->boolean('is_active')->default(1);
-            $table->string('slug');
             $table->string('title');
-            $table->text('about_me');
             $table->text('description')->nullable();
+            $table->decimal('price', 9, 3);
+            $table->boolean('is_final_price')->default(1);
+            $table->unsignedInteger('sort_order')
+                ->nullable()
+                ->default(1);
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('portfolio_id')
                 ->references('id')
-                ->on('users')
+                ->on('portfolios')
                 ->cascadeOnDelete();
         });
     }
@@ -33,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('portfolios');
+        Schema::dropIfExists('services');
     }
 };

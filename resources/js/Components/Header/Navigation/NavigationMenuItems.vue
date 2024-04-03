@@ -21,7 +21,7 @@ const props = defineProps({
 })
 
 const isActive = (menuItem: HeaderNavigationBarMenuItem) => {
-    return menuItem.url === window.location.pathname
+    return window.location.pathname.includes(menuItem.url);
 }
 
 const getIconClass = (menuItem: HeaderNavigationBarMenuItem) => 'lni lni-' + menuItem.icon

@@ -6,12 +6,16 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicPortfolioController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomepageController::class)
     ->name('homepage');
+Route::get('/portfolio/{username}/{slug}', [PublicPortfolioController::class, 'index'])
+    ->name('public-portfolio.item-index');
 
 Route::middleware([RedirectIfAuthenticated::class])->group(function() {
     Route::prefix('register')->name('register.')->group(function() {
@@ -45,15 +49,6 @@ Route::middleware([Authenticate::class])->group(function() {
             ->name('update');
     });
 
-    Route::prefix('portfolios')->name('portfolios.')->group(function() {
-        Route::get('/', [PortfolioController::class, 'listPage'])
-            ->name('list-page');
-        Route::get('/create', [PortfolioController::class, 'createPage'])
-            ->name('create-page');
-
-        Route::get('/update/{portfolio}', [PortfolioController::class, 'updatePage'])
-            ->middleware('can:update,portfolio')
-            ->name('update-page');
-    });
-    Route::resource('portfolios', PortfolioController::class)->only(['store', 'update', 'destroy']);
+    Route::resource('portfolios', PortfolioController::class);
+    Route::resource('services', ServiceController::class)->only(['store', 'update', 'destroy']);
 });

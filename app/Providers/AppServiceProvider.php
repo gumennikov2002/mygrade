@@ -3,8 +3,12 @@
 namespace App\Providers;
 
 use App\Contracts\PortfolioService;
+use App\Contracts\PublicPortfolioService;
+use App\Contracts\ServiceService;
 use App\Contracts\UserService;
 use App\Services\AppPortfolioService;
+use App\Services\AppPublicPortfolioService;
+use App\Services\AppServiceService;
 use App\Services\AppUserService;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
@@ -18,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
     {
         App::bind(UserService::class, AppUserService::class);
         App::bind(PortfolioService::class, AppPortfolioService::class);
+        App::bind(PublicPortfolioService::class, AppPublicPortfolioService::class);
+        App::bind(ServiceService::class, AppServiceService::class);
     }
 
     /**

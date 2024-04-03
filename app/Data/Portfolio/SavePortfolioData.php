@@ -12,6 +12,7 @@ class SavePortfolioData extends Data
         public bool $isActive,
         public string $slug,
         public string $title,
+        public string $aboutMe,
         public ?string $description,
     ) {}
 }

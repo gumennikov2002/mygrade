@@ -1,10 +1,15 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 @import '../vendor/bstheme/bootstrap.css';
 @import '../vendor/lineicons/lineicons.css';
+@import '../vendor/wickedcss/wickedcss.min.css';
 @import 'vars';
 
 body {
-    background-color: #eaeaea;
+    background-color: $body-color;
+}
+
+.bg-body-white {
+    background-color: $body-color;
 }
 
 .bg-brand-dark {

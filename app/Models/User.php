@@ -18,11 +18,15 @@ use WendellAdriel\Lift\Lift;
  * User Model
  *
  * @property Collection<Portfolio> $portfolios
+ * @property Collection<Service> $services
  *
  * @method HasMany portfolios()
  * @method static HasMany portfolios()
+ * @method HasMany services()
+ * @method static HasMany services()
  */
 #[LiftHasMany(Portfolio::class)]
+#[LiftHasMany(Service::class)]
 class User extends Authenticatable
 {
     use Lift, HasApiTokens, HasFactory, Notifiable;

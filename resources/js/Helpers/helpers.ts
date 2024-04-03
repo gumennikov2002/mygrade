@@ -106,3 +106,14 @@ export const getPaginationLinkClass = (link: PaginationLink): string => {
 
     return classes.join(' ');
 }
+
+export const formatCurrency = (value: number, currencyCode: string = 'RUB', includeDecimal: boolean = false): string => {
+    const formatter = new Intl.NumberFormat('ru-RU', {
+        style: 'currency',
+        currency: currencyCode,
+        minimumFractionDigits: includeDecimal ? 2 : 0,
+        maximumFractionDigits: includeDecimal ? 2 : 0,
+    });
+
+    return formatter.format(value);
+};

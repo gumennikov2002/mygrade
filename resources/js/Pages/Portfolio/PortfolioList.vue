@@ -62,10 +62,10 @@
                         </td>
                         <td style="width: 150px">
                             <div class="d-flex gap-3 justify-content-center">
-                                <Link href="#">
-                                    <i class="bg-white shadow-sm text-brand-dark p-2 rounded-3 lni lni-clipboard"></i>
-                                </Link>
-                                <Link :href="`/portfolios/update/${item.id}`">
+                                <a :href="`/portfolio/${user.username}/${item.slug}`" target="_blank">
+                                    <i class="bg-white shadow-sm text-brand-dark p-2 rounded-3 lni lni-world"></i>
+                                </a>
+                                <Link :href="`/portfolios/${item.id}/edit`">
                                     <i class="bg-white shadow-sm text-brand-dark p-2 rounded-3 lni lni-pencil"></i>
                                 </Link>
                                 <Link as="button" method="DELETE" class="border-0 bg-transparent" :href="`/portfolios/${item.id}`">
@@ -102,13 +102,16 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, PropType, ref, watch } from "vue";
-import { Head, Link, router } from "@inertiajs/vue3";
+import {computed, defineProps, PropType, ref, watch} from "vue";
+import {Head, Link, router, usePage} from "@inertiajs/vue3";
 import DefaultLayout from "../../Layout/DefaultLayout.vue";
-import { formatDate, getPaginationLinkClass, containsText } from "../../Helpers/helpers";
+import { formatDate, getPaginationLinkClass } from "../../Helpers/helpers";
 import PortfolioStatusFilter = App.Enums.PortfolioStatusFilter;
 import { PortfolioDataPaginated } from "../../Types/types";
 import PortfolioFilter = App.Enums.PortfolioFilter;
+
+const page = usePage();
+const user = computed(() => page.props.user);
 
 const props = defineProps({
     portfolios: {
@@ -150,7 +153,6 @@ const textHighlight = (text: string): string => {
         return text;
     }
 
-    // Создаем регулярное выражение для поиска текста с игнорированием регистра
     const regex = new RegExp(searchingValue, 'gi');
 
     return text?.replace(regex, (match) => `

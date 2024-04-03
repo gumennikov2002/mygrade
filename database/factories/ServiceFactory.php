@@ -3,13 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Portfolio;
-use App\Models\User;
+use App\Models\Service;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Portfolio>
+ * @extends Factory<Service>
  */
-class PortfolioFactory extends Factory
+class ServiceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,12 +19,12 @@ class PortfolioFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory()->create()->id,
-            'is_active' => true,
-            'slug' => $this->faker->slug(),
+            'portfolio_id' => Portfolio::factory()->create()->id,
             'title' => $this->faker->sentence(),
-            'about_me' => $this->faker->paragraph(),
+            'price' => rand(0, 100000),
+            'is_final_price' => rand(0, 1),
             'description' => $this->faker->paragraph(),
+            'sort_order' => 1,
         ];
     }
 }
