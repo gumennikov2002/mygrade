@@ -44,9 +44,9 @@
                 </div>
             </ContentCard>
 
-            <ContentCard class="pb-5" id="links" title="Ссылки">
+            <ContentCard v-if="links?.length" class="pb-5" id="links" title="Ссылки">
                 <div class="d-flex gap-4">
-                    <a v-for="item in contacts" :href="item.url" target="_blank">{{ item.title }}</a>
+                    <a v-for="item in links" :href="item.href" target="_blank">{{ item.label }}</a>
                 </div>
             </ContentCard>
         </div>
@@ -77,6 +77,7 @@ import { Head } from "@inertiajs/vue3";
 import PortfolioData = App.Data.Portfolio.PortfolioData;
 import UserData = App.Data.User.UserData;
 import ServiceData = App.Data.Service.ServiceData;
+import LinkData = App.Data.Link.LinkData;
 
 const props = defineProps({
     portfolio: {
@@ -87,13 +88,15 @@ const props = defineProps({
         type: Object as PropType<ServiceData[]>,
         required: false
     },
+    links: {
+        type: Object as PropType<LinkData[]>,
+        required: false
+    },
     user: {
         type: Object as PropType<UserData>,
         required: true
     }
 });
-
-console.log(props.services)
 
 const works = ref([
     { title: 'Работа 1', description: 'Работа .........'},
@@ -102,13 +105,6 @@ const works = ref([
     { title: 'Работа 4', description: 'Работа .........'},
     { title: 'Работа 5', description: 'Работа .........'},
     { title: 'Работа 6', description: 'Работа .........'}
-]);
-
-const contacts = ref([
-    { title: 'Telegram', url: 'https://t.me/' },
-    { title: 'VK', url: 'https://vk.com/' },
-    { title: 'GitHub', url: 'https://github.com/' },
-    { title: 'Behance', url: 'https://behance.net/' },
 ]);
 </script>
 

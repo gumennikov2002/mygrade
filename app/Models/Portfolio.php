@@ -21,7 +21,8 @@ use WendellAdriel\Lift\Lift;
  * Portfolio Model
  *
  * @property User $user
- * @property Collection<Service> $services
+ * @property Collection<int, Service> $services
+ * @property Collection<int, Link> $links
  *
  * @method BelongsTo user()
  * @method static BelongsTo user()
@@ -34,6 +35,7 @@ use WendellAdriel\Lift\Lift;
  */
 #[LiftBelongsTo(User::class)]
 #[LiftHasMany(Service::class)]
+#[LiftHasMany(Link::class)]
 class Portfolio extends Model
 {
     use Lift, HasFactory, PortfolioFilters;

@@ -109,7 +109,13 @@
                 <ServicesTab :services="services" :portfolio-id="form.id" />
             </div>
 
-            <div class="tab-pane fade" id="nav-works" role="tabpanel" aria-labelledby="nav-works-tab">...</div>
+            <div v-if="form.id" class="tab-pane fade" id="nav-works" role="tabpanel" aria-labelledby="nav-works-tab">
+                ...
+            </div>
+
+            <div v-if="form.id" class="tab-pane fade" id="nav-links" role="tabpanel" aria-labelledby="nav-links-tab">
+                <LinksTab :links="links" :portfolio-id="form.id" />
+            </div>
         </div>
     </DefaultLayout>
 </template>
@@ -125,6 +131,8 @@ import { formatDate, slugify } from "../../Helpers/helpers";
 import PortfolioData = App.Data.Portfolio.PortfolioData;
 import ServiceData = App.Data.Service.ServiceData;
 import ServicesTab from "../../Components/Portfolio/Tabs/ServicesTab.vue";
+import LinkData = App.Data.Link.LinkData;
+import LinksTab from "../../Components/Portfolio/Tabs/LinksTab.vue";
 
 const props = defineProps({
     portfolio: {
@@ -133,6 +141,10 @@ const props = defineProps({
     },
     services: {
         type: Object as PropType<ServiceData[]>,
+        required: false
+    },
+    links: {
+        type: Object as PropType<LinkData[]>,
         required: false
     }
 });

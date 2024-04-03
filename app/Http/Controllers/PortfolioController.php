@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\PortfolioService;
+use App\Data\Link\LinkData;
 use App\Data\Portfolio\PortfolioData;
 use App\Data\Portfolio\SavePortfolioData;
 use App\Data\Service\ServiceData;
@@ -42,9 +43,14 @@ class PortfolioController extends Controller
                 ->orderBy('sort_order')
                 ->get()
         );
+        $links = LinkData::collect(
+            $portfolio->links()
+                ->orderBy('sort_order')
+                ->get()
+        );
         $portfolio = PortfolioData::from($portfolio);
 
-        return inertia('Portfolio/PortfolioItem', compact('portfolio', 'services'));
+        return inertia('Portfolio/PortfolioItem', compact('portfolio', 'services', 'links'));
     }
 
     public function store(Request $request): RedirectResponse

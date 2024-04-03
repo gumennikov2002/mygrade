@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\PublicPortfolioService;
+use App\Data\Link\LinkData;
 use App\Data\Portfolio\PortfolioData;
 use App\Data\Service\ServiceData;
 use App\Data\User\UserData;
@@ -27,10 +28,15 @@ class PublicPortfolioController extends Controller
             ->active()
             ->orderBy('sort_order')
             ->get();
+        $links = $portfolio->links()
+            ->active()
+            ->orderBy('sort_order')
+            ->get();
 
         return inertia('Portfolio/PortfolioPublicItem', [
             'portfolio' => PortfolioData::from($portfolio),
             'services' => ServiceData::collect($services),
+            'links' => LinkData::collect($links),
             'user' => UserData::from($user),
         ]);
     }

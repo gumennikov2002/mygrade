@@ -11,6 +11,25 @@ password: string;
 password_confirmation: string;
 };
 }
+declare namespace App.Data.Link {
+export type LinkData = {
+id: number;
+portfolioId: number;
+isActive: boolean;
+label: string;
+href: string;
+sortOrder: number;
+updatedAt: string;
+createdAt: string;
+};
+export type SaveLinkData = {
+portfolioId: number;
+isActive: boolean;
+label: string;
+href: string;
+sortOrder: number;
+};
+}
 declare namespace App.Data.Portfolio {
 export type PortfolioData = {
 id: number;
