@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Traits\Filters\Common;
+namespace App\Traits\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 
-trait SearchFilter
+trait SearchFilterScope
 {
     public function scopeFilterSearch(Builder $query, string $search, array $columns): void
     {

@@ -3,10 +3,13 @@
 namespace App\Services;
 
 use App\Contracts\PortfolioService;
-use App\Data\Portfolio\PortfolioData;
-use App\Data\Portfolio\SavePortfolioData;
+use App\Data\LinkData;
+use App\Data\PortfolioData;
+use App\Data\ServiceData;
 use App\Enums\PortfolioStatusFilter;
+use App\Models\Link;
 use App\Models\Portfolio;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\AbstractPaginator;
@@ -17,26 +20,25 @@ class AppPortfolioService implements PortfolioService
     /**
      * Create a new portfolio.
      *
-     * @param User $owner
-     * @param SavePortfolioData $data
+     * @param User $user
+     * @param PortfolioData $data
      *
      * @return Portfolio
      */
-    public function create(User $owner, SavePortfolioData $data): Portfolio
+    public function newPortfolio(User $user, PortfolioData $data): Portfolio
     {
-        return $owner->portfolios()
-            ->create($data->toArray());
+        return $user->portfolios()->create($data->toArray());
     }
 
     /**
      * Update an existing portfolio.
      *
      * @param Portfolio $portfolio
-     * @param SavePortfolioData $data
+     * @param PortfolioData $data
      *
      * @return Portfolio
      */
-    public function update(Portfolio $portfolio, SavePortfolioData $data): Portfolio
+    public function updatePortfolio(Portfolio $portfolio, PortfolioData $data): Portfolio
     {
         $portfolio->update($data->toArray());
 
@@ -50,7 +52,7 @@ class AppPortfolioService implements PortfolioService
      *
      * @return void
      */
-    public function delete(Portfolio $portfolio): void
+    public function deletePortfolio(Portfolio $portfolio): void
     {
         $portfolio->delete();
     }
@@ -58,7 +60,7 @@ class AppPortfolioService implements PortfolioService
     /**
      * Get paginated portfolios by owner(user).
      *
-     * @param User $owner
+     * @param User $user
      * @param int $perPage
      * @param array $filters
      * @param string $orderBy
@@ -67,14 +69,14 @@ class AppPortfolioService implements PortfolioService
      * @return AbstractPaginator
      */
     public function getPaginatedByUser(
-        User $owner,
+        User $user,
         int $perPage = 20,
         array $filters = [],
         string $orderBy = 'id',
         string $orderDirection = 'desc'
     ): AbstractPaginator
     {
-        $portfolios = $owner->portfolios()
+        $portfolios = $user->portfolios()
             ->when(isset($filters['search']), function (Builder $query) use ($filters) {
                 $query->filterSearch($filters['search'], ['title', 'description']);
             })
@@ -87,5 +89,83 @@ class AppPortfolioService implements PortfolioService
             ->withQueryString();
 
         return PortfolioData::collect($portfolios);
+    }
+
+    /**
+     * Create new service
+     *
+     * @param ServiceData $data
+     *
+     * @return Service
+     */
+    public function newService(ServiceData $data): Service
+    {
+        return Service::query()->create($data->toArray());
+    }
+
+    /**
+     * Update an existing service
+     *
+     * @param Service $service
+     * @param ServiceData $data
+     *
+     * @return Service
+     */
+    public function updateService(Service $service, ServiceData $data): Service
+    {
+        $service->update($data->toArray());
+
+        return $service->fresh();
+    }
+
+    /**
+     * Delete service
+     *
+     * @param Service $service
+     *
+     * @return void
+     */
+    public function deleteService(Service $service): void
+    {
+        $service->delete();
+    }
+
+    /**
+     * Create new link
+     *
+     * @param LinkData $data
+     *
+     * @return Link
+     */
+    public function newLink(LinkData $data): Link
+    {
+        return Link::query()->create($data->toArray());
+    }
+
+    /**
+     * Update an existing link
+     *
+     * @param Link $link
+     * @param LinkData $data
+     *
+     * @return mixed
+     */
+    public function updateLink(Link $link, LinkData $data): Link
+    {
+        $link->update($data->toArray());
+
+        return $link->fresh();
+    }
+
+    /**
+     * Remove link
+     *
+     * @param Link $link
+     *
+     * @return void
+     */
+    public function deleteLink(Link $link): void
+    {
+        $link->delete();
     }
 }

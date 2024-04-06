@@ -22,7 +22,7 @@ class ProfileController extends Controller
     public function update(UpdateUserRequest $request): RedirectResponse
     {
         $this->userService->update(
-            auth()->user(),
+            $request->user(),
             UpdateUserData::from($request)
         );
 

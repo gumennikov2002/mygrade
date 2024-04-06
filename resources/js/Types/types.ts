@@ -1,5 +1,5 @@
-import PortfolioData = App.Data.Portfolio.PortfolioData;
-import ServiceData = App.Data.Service.ServiceData;
+import PortfolioData = App.Data.PortfolioData;
+import ServiceData = App.Data.ServiceData;
 
 export type HeaderNavigationBarMenuItem = {
     icon: string | null,

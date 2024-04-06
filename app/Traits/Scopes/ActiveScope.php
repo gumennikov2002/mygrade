@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Traits\Filters\Common;
+namespace App\Traits\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 
-trait ActiveFilter
+trait ActiveScope
 {
     public function scopeActive(Builder $query): void
     {

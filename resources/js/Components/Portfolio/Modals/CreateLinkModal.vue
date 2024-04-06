@@ -63,7 +63,7 @@
 import { defineProps } from 'vue';
 import { useForm } from "@inertiajs/vue3";
 import AlertSuccess from "../../Page/AlertSuccess.vue";
-import SaveLinkData = App.Data.Link.SaveLinkData;
+import LinkData = App.Data.LinkData;
 
 const props = defineProps({
     portfolioId: {
@@ -72,7 +72,8 @@ const props = defineProps({
     }
 });
 
-const form = useForm<SaveLinkData>({
+const form = useForm<LinkData>({
+    id: null,
     portfolioId: props.portfolioId,
     isActive: true,
     label: null,

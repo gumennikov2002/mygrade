@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Traits\Filters\LinkFilters;
+use App\Traits\Scopes\ActiveScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +23,7 @@ use WendellAdriel\Lift\Lift;
 #[LiftBelongsTo(Portfolio::class)]
 class Link extends Model
 {
-    use HasFactory, Lift, LinkFilters;
+    use HasFactory, Lift, ActiveScope;
 
     #[PrimaryKey]
     public int $id;

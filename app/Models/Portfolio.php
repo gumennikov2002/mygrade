@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PortfolioStatusFilter;
-use App\Traits\Filters\PortfolioFilters;
+use App\Traits\Scopes\SearchFilterScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -38,7 +38,7 @@ use WendellAdriel\Lift\Lift;
 #[LiftHasMany(Link::class)]
 class Portfolio extends Model
 {
-    use Lift, HasFactory, PortfolioFilters;
+    use Lift, HasFactory, SearchFilterScope;
 
     #[PrimaryKey]
     public int $id;
@@ -93,5 +93,14 @@ class Portfolio extends Model
             'aboutMe.required' => 'Поле "О себе" обязательно для заполнения',
             'aboutMe.min' => 'Поле "О себе" должно содержать не менее :min символов'
         ];
+    }
+
+    public function scopeFilterStatus(Builder $query, PortfolioStatusFilter $status): void
+    {
+        if ($status === PortfolioStatusFilter::ALL) {
+            return;
+        }
+
+        $query->where('is_active', $status === PortfolioStatusFilter::ACTIVE);
     }
 }

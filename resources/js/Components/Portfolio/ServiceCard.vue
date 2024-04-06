@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import {defineProps, PropType} from 'vue';
 import { formatCurrency } from "../../Helpers/helpers";
-import ServiceData = App.Data.Service.ServiceData;
+import ServiceData = App.Data.ServiceData;
 import {Link} from "@inertiajs/vue3";
 
 const props = defineProps({

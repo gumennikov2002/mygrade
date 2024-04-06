@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\LinkService;
-use App\Data\Link\SaveLinkData;
+use App\Contracts\PortfolioService;
+use App\Data\LinkData;
 use App\Models\Link;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -12,13 +12,13 @@ class LinkController extends Controller
 {
 
     public function __construct(
-        protected LinkService $service
+        protected PortfolioService $service
     ) {}
 
     public function store(Request $request): RedirectResponse
     {
-        $link = $this->service->create(
-            SaveLinkData::from($request)
+        $link = $this->service->newLink(
+            LinkData::from($request)
         );
 
         return redirect()->route('portfolios.edit', [
@@ -28,9 +28,9 @@ class LinkController extends Controller
 
     public function update(Request $request, Link $link): RedirectResponse
     {
-        $this->service->update(
+        $this->service->updateLink(
             $link,
-            SaveLinkData::from($request)
+            LinkData::from($request)
         );
 
         return redirect()->route('portfolios.edit', [
@@ -40,6 +40,6 @@ class LinkController extends Controller
 
     public function destroy(Link $link): void
     {
-        $this->service->delete($link);
+        $this->service->deleteLink($link);
     }
 }

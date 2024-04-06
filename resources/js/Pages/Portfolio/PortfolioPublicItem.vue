@@ -74,10 +74,10 @@ import WorkCard from "../../Components/Portfolio/WorkCard.vue";
 import Logo from "../../Components/Logo.vue";
 import { defineProps, PropType, ref } from 'vue';
 import { Head } from "@inertiajs/vue3";
-import PortfolioData = App.Data.Portfolio.PortfolioData;
+import PortfolioData = App.Data.PortfolioData;
 import UserData = App.Data.User.UserData;
-import ServiceData = App.Data.Service.ServiceData;
-import LinkData = App.Data.Link.LinkData;
+import ServiceData = App.Data.ServiceData;
+import LinkData = App.Data.LinkData;
 
 const props = defineProps({
     portfolio: {

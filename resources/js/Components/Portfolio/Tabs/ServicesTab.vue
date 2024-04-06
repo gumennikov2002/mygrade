@@ -63,7 +63,7 @@
 
 <script lang="ts" setup>
 import { defineProps, PropType } from 'vue';
-import ServiceData = App.Data.Service.ServiceData;
+import ServiceData = App.Data.ServiceData;
 import { formatCurrency, formatDate } from "../../../Helpers/helpers";
 import { Link, useForm } from "@inertiajs/vue3";
 import CreateServiceModal from "../Modals/CreateServiceModal.vue";

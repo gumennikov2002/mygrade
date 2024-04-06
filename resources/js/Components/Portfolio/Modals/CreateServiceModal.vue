@@ -88,8 +88,8 @@
 <script lang="ts" setup>
 import { defineProps } from 'vue';
 import { useForm } from "@inertiajs/vue3";
-import SaveServiceData = App.Data.Service.SaveServiceData;
 import AlertSuccess from "../../Page/AlertSuccess.vue";
+import ServiceData = App.Data.ServiceData;
 
 const props = defineProps({
     portfolioId: {
@@ -98,7 +98,7 @@ const props = defineProps({
     }
 });
 
-const form = useForm<SaveServiceData>({
+const form = useForm<ServiceData>({
     portfolioId: props.portfolioId,
     isActive: true,
     title: null,

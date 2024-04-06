@@ -128,10 +128,10 @@ import Breadcrumbs from "../../Components/Page/Breadcrumbs.vue";
 import AlertSuccess from "../../Components/Page/AlertSuccess.vue";
 import DefaultLayout from "../../Layout/DefaultLayout.vue";
 import { formatDate, slugify } from "../../Helpers/helpers";
-import PortfolioData = App.Data.Portfolio.PortfolioData;
-import ServiceData = App.Data.Service.ServiceData;
+import PortfolioData = App.Data.PortfolioData;
+import ServiceData = App.Data.ServiceData;
 import ServicesTab from "../../Components/Portfolio/Tabs/ServicesTab.vue";
-import LinkData = App.Data.Link.LinkData;
+import LinkData = App.Data.LinkData;
 import LinksTab from "../../Components/Portfolio/Tabs/LinksTab.vue";
 
 const props = defineProps({

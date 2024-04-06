@@ -2,8 +2,12 @@
 
 namespace App\Contracts;
 
-use App\Data\Portfolio\SavePortfolioData;
+use App\Data\LinkData;
+use App\Data\PortfolioData;
+use App\Data\ServiceData;
+use App\Models\Link;
 use App\Models\Portfolio;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Pagination\AbstractPaginator;
 
@@ -12,22 +16,22 @@ interface PortfolioService
     /**
      * Create a new portfolio.
      *
-     * @param User $owner
-     * @param SavePortfolioData $data
+     * @param User $user
+     * @param PortfolioData $data
      *
      * @return Portfolio
      */
-    public function create(User $owner, SavePortfolioData $data): Portfolio;
+    public function newPortfolio(User $user, PortfolioData $data): Portfolio;
 
     /**
      * Update an existing portfolio.
      *
      * @param Portfolio $portfolio
-     * @param SavePortfolioData $data
+     * @param PortfolioData $data
      *
      * @return Portfolio
      */
-    public function update(Portfolio $portfolio, SavePortfolioData $data): Portfolio;
+    public function updatePortfolio(Portfolio $portfolio, PortfolioData $data): Portfolio;
 
     /**
      * Delete an existing portfolio.
@@ -36,12 +40,12 @@ interface PortfolioService
      *
      * @return void
      */
-    public function delete(Portfolio $portfolio): void;
+    public function deletePortfolio(Portfolio $portfolio): void;
 
     /**
      * Get paginated portfolios by owner(user).
      *
-     * @param User $owner
+     * @param User $user
      * @param int $perPage
      * @param array<string, mixed> $filters
      * @param string $orderBy
@@ -49,5 +53,61 @@ interface PortfolioService
      *
      * @return AbstractPaginator<Portfolio>
      */
-    public function getPaginatedByUser(User $owner, int $perPage = 20, array $filters = [], string $orderBy = 'id', string $orderDirection = 'desc'): AbstractPaginator;
+    public function getPaginatedByUser(User $user, int $perPage = 20, array $filters = [], string $orderBy = 'id', string $orderDirection = 'desc'): AbstractPaginator;
+
+    /**
+     * Create new service
+     *
+     * @param ServiceData $data
+     *
+     * @return Service
+     */
+    public function newService(ServiceData $data): Service;
+
+    /**
+     * Update an existing service
+     *
+     * @param Service $service
+     * @param ServiceData $data
+     *
+     * @return Service
+     */
+    public function updateService(Service $service, ServiceData $data): Service;
+
+    /**
+     * Delete service
+     *
+     * @param Service $service
+     *
+     * @return void
+     */
+    public function deleteService(Service $service): void;
+
+    /**
+     * Create new link
+     *
+     * @param LinkData $data
+     *
+     * @return Link
+     */
+    public function newLink(LinkData $data): Link;
+
+    /**
+     * Update an existing link
+     *
+     * @param Link $link
+     * @param LinkData $data
+     *
+     * @return mixed
+     */
+    public function updateLink(Link $link, LinkData $data): Link;
+
+    /**
+     * Remove link
+     *
+     * @param Link $link
+     *
+     * @return void
+     */
+    public function deleteLink(Link $link): void;
 }

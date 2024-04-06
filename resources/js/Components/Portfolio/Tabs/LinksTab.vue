@@ -63,7 +63,7 @@
 import { defineProps, PropType } from 'vue';
 import { formatDate } from "../../../Helpers/helpers";
 import { Link, useForm } from "@inertiajs/vue3";
-import LinkData = App.Data.Link.LinkData;
+import LinkData = App.Data.LinkData;
 import CreateLinkModal from "../Modals/CreateLinkModal.vue";
 
 const props = defineProps({

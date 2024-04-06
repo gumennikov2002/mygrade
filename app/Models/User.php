@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -17,13 +17,13 @@ use WendellAdriel\Lift\Lift;
 /**
  * User Model
  *
- * @property Collection<Portfolio> $portfolios
- * @property Collection<Service> $services
+ * @mixin Builder
  *
- * @method HasMany portfolios()
- * @method static HasMany portfolios()
- * @method HasMany services()
- * @method static HasMany services()
+ * @property Portfolio[]|Collection<int, Portfolio> $portfolios
+ * @property Service[]|Collection<int, Service> $services
+ *
+ * @method Builder|static portfolios()
+ * @method Builder|static services()
  */
 #[LiftHasMany(Portfolio::class)]
 #[LiftHasMany(Service::class)]
@@ -60,7 +60,7 @@ class User extends Authenticatable
 
     public static function suggestUsername(): string
     {
-        $username = 'user'.str()->random(10);
+        $username = 'user' . str()->random(10);
 
         if (self::query()->where('username', $username)->exists()) {
             return self::suggestUsername();

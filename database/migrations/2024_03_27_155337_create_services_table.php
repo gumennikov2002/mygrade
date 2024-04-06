@@ -19,9 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('price', 9, 3);
             $table->boolean('is_final_price')->default(1);
-            $table->unsignedInteger('sort_order')
-                ->nullable()
-                ->default(1);
+            $table->unsignedInteger('sort_order')->default(1);
             $table->timestamps();
 
             $table->foreign('portfolio_id')

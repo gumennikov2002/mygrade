@@ -17,9 +17,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(1);
             $table->string('label');
             $table->text('href');
-            $table->unsignedInteger('sort_order')
-                ->nullable()
-                ->default(1);
+            $table->unsignedInteger('sort_order')->default(1);
             $table->timestamps();
 
             $table->foreign('portfolio_id')

@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\PortfolioService;
-use App\Data\Link\LinkData;
-use App\Data\Portfolio\PortfolioData;
-use App\Data\Portfolio\SavePortfolioData;
-use App\Data\Service\ServiceData;
+use App\Data\LinkData;
+use App\Data\PortfolioData;
+use App\Data\ServiceData;
+use App\Data\User\UserData;
 use App\Enums\PortfolioFilter;
+use App\Enums\PortfolioStatusFilter;
 use App\Models\Portfolio;
+use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Inertia\Response;
 
 class PortfolioController extends Controller
@@ -29,35 +32,55 @@ class PortfolioController extends Controller
         return inertia('Portfolio/PortfolioList', compact('portfolios', 'filters'));
     }
 
+    public function indexPublic(string $username, string $slug): Response
+    {
+        $user = User::with('portfolios')
+            ->where('username', $username)
+            ->firstOrFail();
+
+        $portfolio = $user->portfolios()
+            ->filterStatus(PortfolioStatusFilter::ACTIVE)
+            ->where('slug', $slug)
+            ->with([
+                'services' => fn (Builder $query) => $query->active()->orderBy('sort_order'),
+                'links' => fn (Builder $query)  => $query->active()->orderBy('sort_order')
+            ])
+            ->firstOrFail();
+
+        return inertia('Portfolio/PortfolioPublicItem', [
+            'portfolio' => PortfolioData::from($portfolio),
+            'services' => ServiceData::collect($portfolio->services),
+            'links' => LinkData::collect($portfolio->links),
+            'user' => UserData::from($user),
+        ]);
+    }
+
     public function create(): Response
     {
         return inertia('Portfolio/PortfolioItem');
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function edit(Portfolio $portfolio): Response
     {
-        Gate::authorize('update', $portfolio);
+        $this->authorize('update', $portfolio);
 
-        $services = ServiceData::collect(
-            $portfolio->services()
-                ->orderBy('sort_order')
-                ->get()
-        );
-        $links = LinkData::collect(
-            $portfolio->links()
-                ->orderBy('sort_order')
-                ->get()
-        );
-        $portfolio = PortfolioData::from($portfolio);
+        $portfolio->load('services', 'links');
 
-        return inertia('Portfolio/PortfolioItem', compact('portfolio', 'services', 'links'));
+        return inertia('Portfolio/PortfolioItem', [
+            'portfolio' => PortfolioData::from($portfolio),
+            'services' => ServiceData::collect($portfolio->services),
+            'links' => LinkData::collect($portfolio->links),
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
     {
-        $this->service->create(
+        $this->service->newPortfolio(
             $request->user(),
-            SavePortfolioData::from($request)
+            PortfolioData::from($request)
         );
 
         return redirect()->route('portfolios.index');
@@ -65,9 +88,9 @@ class PortfolioController extends Controller
 
     public function update(Portfolio $portfolio, Request $request): RedirectResponse
     {
-        $this->service->update(
+        $this->service->updatePortfolio(
             $portfolio,
-            SavePortfolioData::from($request)
+            PortfolioData::from($request)
         );
 
         return redirect()->route('portfolios.edit', [
@@ -77,6 +100,6 @@ class PortfolioController extends Controller
 
     public function destroy(Portfolio $portfolio): void
     {
-        $this->service->delete($portfolio);
+        $this->service->deletePortfolio($portfolio);
     }
 }
