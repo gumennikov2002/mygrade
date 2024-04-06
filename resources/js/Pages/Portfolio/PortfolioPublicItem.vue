@@ -32,9 +32,9 @@
                 </p>
             </ContentCard>
 
-            <ContentCard class="pb-5" id="works" title="Работы">
+            <ContentCard v-if="projects?.length" class="pb-5" id="works" title="Работы">
                 <div class="d-flex flex-wrap gap-3">
-                    <WorkCard width="40rem" :work="item" v-for="item in works" />
+                    <ProjectCard width="40rem" :project="item" v-for="item in projects" />
                 </div>
             </ContentCard>
 
@@ -70,7 +70,6 @@
 <script lang="ts" setup>
 import ContentCard from "../../Components/Portfolio/ContentCard.vue";
 import ServiceCard from "../../Components/Portfolio/ServiceCard.vue";
-import WorkCard from "../../Components/Portfolio/WorkCard.vue";
 import Logo from "../../Components/Logo.vue";
 import { defineProps, PropType, ref } from 'vue';
 import { Head } from "@inertiajs/vue3";
@@ -78,6 +77,8 @@ import PortfolioData = App.Data.PortfolioData;
 import UserData = App.Data.User.UserData;
 import ServiceData = App.Data.ServiceData;
 import LinkData = App.Data.LinkData;
+import ProjectData = App.Data.ProjectData;
+import ProjectCard from "../../Components/Portfolio/ProjectCard.vue";
 
 const props = defineProps({
     portfolio: {
@@ -92,19 +93,14 @@ const props = defineProps({
         type: Object as PropType<LinkData[]>,
         required: false
     },
+    projects: {
+        type: Object as PropType<ProjectData[]>,
+        required: false
+    },
     user: {
         type: Object as PropType<UserData>,
         required: true
     }
 });
-
-const works = ref([
-    { title: 'Работа 1', description: 'Работа .........'},
-    { title: 'Работа 2', description: 'Работа .........'},
-    { title: 'Работа 3', description: 'Работа .........'},
-    { title: 'Работа 4', description: 'Работа .........'},
-    { title: 'Работа 5', description: 'Работа .........'},
-    { title: 'Работа 6', description: 'Работа .........'}
-]);
 </script>
 

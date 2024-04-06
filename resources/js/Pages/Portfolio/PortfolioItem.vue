@@ -110,7 +110,7 @@
             </div>
 
             <div v-if="form.id" class="tab-pane fade" id="nav-works" role="tabpanel" aria-labelledby="nav-works-tab">
-                ...
+                <ProjectsTab :projects="projects" :portfolio-id="form.id" />
             </div>
 
             <div v-if="form.id" class="tab-pane fade" id="nav-links" role="tabpanel" aria-labelledby="nav-links-tab">
@@ -133,6 +133,8 @@ import ServiceData = App.Data.ServiceData;
 import ServicesTab from "../../Components/Portfolio/Tabs/ServicesTab.vue";
 import LinkData = App.Data.LinkData;
 import LinksTab from "../../Components/Portfolio/Tabs/LinksTab.vue";
+import ProjectsTab from "../../Components/Portfolio/Tabs/ProjectsTab.vue";
+import ProjectData = App.Data.ProjectData;
 
 const props = defineProps({
     portfolio: {
@@ -145,6 +147,10 @@ const props = defineProps({
     },
     links: {
         type: Object as PropType<LinkData[]>,
+        required: false
+    },
+    projects: {
+        type: Object as PropType<ProjectData[]>,
         required: false
     }
 });

@@ -19,6 +19,16 @@ description: string | null;
 createdAt?: string | null;
 updatedAt?: string | null;
 };
+export type ProjectData = {
+id?: number | null;
+portfolioId: number;
+isActive: boolean;
+title: string;
+description: string | null;
+sortOrder: number;
+createdAt?: string | null;
+updatedAt?: string | null;
+};
 export type ServiceData = {
 id?: number | null;
 portfolioId: number;

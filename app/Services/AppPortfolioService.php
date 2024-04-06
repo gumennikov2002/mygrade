@@ -5,10 +5,12 @@ namespace App\Services;
 use App\Contracts\PortfolioService;
 use App\Data\LinkData;
 use App\Data\PortfolioData;
+use App\Data\ProjectData;
 use App\Data\ServiceData;
 use App\Enums\PortfolioStatusFilter;
 use App\Models\Link;
 use App\Models\Portfolio;
+use App\Models\Project;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -167,5 +169,44 @@ class AppPortfolioService implements PortfolioService
     public function deleteLink(Link $link): void
     {
         $link->delete();
+    }
+
+    /**
+     * Create new project
+     *
+     * @param ProjectData $data
+     *
+     * @return Project
+     */
+    public function newProject(ProjectData $data): Project
+    {
+        return Project::query()->create($data->toArray());
+    }
+
+    /**
+     * Update an existing project
+     *
+     * @param Project $project
+     * @param ProjectData $data
+     *
+     * @return Project
+     */
+    public function updateProject(Project $project, ProjectData $data): Project
+    {
+        $project->update($data->toArray());
+
+        return $project->refresh();
+    }
+
+    /**
+     * Delete project
+     *
+     * @param Project $project
+     *
+     * @return void
+     */
+    public function deleteProject(Project $project): void
+    {
+        $project->delete();
     }
 }

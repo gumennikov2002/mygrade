@@ -23,11 +23,16 @@ use WendellAdriel\Lift\Lift;
  * @property User $user
  * @property Collection<int, Service> $services
  * @property Collection<int, Link> $links
+ * @property Collection<int, Project> $projects
  *
  * @method BelongsTo user()
  * @method static BelongsTo user()
  * @method HasMany services()
  * @method static HasMany services()
+ * @method HasMany links()
+ * @method static HasMany links()
+ * @method HasMany projects()
+ * @method static HasMany projects()
  * @method Builder filterSearch(string $search, array $columns)
  * @method static Builder filterSearch(string $search, array $columns)
  * @method Builder filterStatus(PortfolioStatusFilter $status)
@@ -36,6 +41,7 @@ use WendellAdriel\Lift\Lift;
 #[LiftBelongsTo(User::class)]
 #[LiftHasMany(Service::class)]
 #[LiftHasMany(Link::class)]
+#[LiftHasMany(Project::class)]
 class Portfolio extends Model
 {
     use Lift, HasFactory, SearchFilterScope;

@@ -6,6 +6,7 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +38,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('portfolios', PortfolioController::class);
     Route::resource('services', ServiceController::class)->only(['store', 'update', 'destroy']);
     Route::resource('links', LinkController::class)->only(['store', 'update', 'destroy']);
+    Route::resource('projects', ProjectController::class)->only(['store', 'update', 'destroy']);
 });

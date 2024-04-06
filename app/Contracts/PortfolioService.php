@@ -4,9 +4,11 @@ namespace App\Contracts;
 
 use App\Data\LinkData;
 use App\Data\PortfolioData;
+use App\Data\ProjectData;
 use App\Data\ServiceData;
 use App\Models\Link;
 use App\Models\Portfolio;
+use App\Models\Project;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Pagination\AbstractPaginator;
@@ -110,4 +112,32 @@ interface PortfolioService
      * @return void
      */
     public function deleteLink(Link $link): void;
+
+    /**
+     * Create new project
+     *
+     * @param ProjectData $data
+     *
+     * @return Project
+     */
+    public function newProject(ProjectData $data): Project;
+
+    /**
+     * Update an existing project
+     *
+     * @param Project $project
+     * @param ProjectData $data
+     *
+     * @return Project
+     */
+    public function updateProject(Project $project, ProjectData $data): Project;
+
+    /**
+     * Delete project
+     *
+     * @param Project $project
+     *
+     * @return void
+     */
+    public function deleteProject(Project $project): void;
 }

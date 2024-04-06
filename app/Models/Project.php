@@ -11,9 +11,8 @@ use WendellAdriel\Lift\Attributes\PrimaryKey;
 use WendellAdriel\Lift\Attributes\Relations\BelongsTo as LiftBelongsTo;
 use WendellAdriel\Lift\Lift;
 
-
 /**
- * Service Model
+ * Project Model
  *
  * @property Portfolio $portfolio
  *
@@ -21,7 +20,7 @@ use WendellAdriel\Lift\Lift;
  * @method static BelongsTo portfolio()
  */
 #[LiftBelongsTo(Portfolio::class)]
-class Service extends PortfolioItem
+class Project extends PortfolioItem
 {
     use HasFactory, Lift, ActiveScope;
 
@@ -40,14 +39,8 @@ class Service extends PortfolioItem
     #[Config(fillable: true)]
     public ?string $description;
 
-    #[Config(cast: 'float', fillable: true)]
-    public float $price;
-
     #[Config(fillable: true, column: 'sort_order', default: 1)]
     public int $sortOrder;
-
-    #[Config(cast: 'boolean', fillable: true, column: 'is_final_price')]
-    public bool $isFinalPrice;
 
     #[Config(cast: 'datetime', column: 'created_at')]
     public ?Carbon $createdAt;
@@ -60,7 +53,6 @@ class Service extends PortfolioItem
         return [
             'title' => ['required', 'string', 'min:3', 'max:255'],
             'description' => ['nullable', 'string'],
-            'price' => ['required', 'numeric', 'min:0'],
         ];
     }
 
@@ -71,8 +63,6 @@ class Service extends PortfolioItem
             'title.string' => 'Поле "Заголовок" должно быть строкой',
             'title.min' => 'Поле "Заголовок" должно содержать более :min символов',
             'title.max' => 'Поле "Заголовок" должно содержать не более :max символов',
-            'price.required' => 'Поле "Цена" обязательно для заполнения',
-            'price.numeric' => 'Поле "Цена" должно быть числом'
         ];
     }
 }

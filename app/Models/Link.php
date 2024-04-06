@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Traits\Scopes\ActiveScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use WendellAdriel\Lift\Attributes\Config;
 use WendellAdriel\Lift\Attributes\PrimaryKey;
@@ -21,7 +20,7 @@ use WendellAdriel\Lift\Lift;
  * @method static BelongsTo portfolio()
  */
 #[LiftBelongsTo(Portfolio::class)]
-class Link extends Model
+class Link extends PortfolioItem
 {
     use HasFactory, Lift, ActiveScope;
 
@@ -41,7 +40,7 @@ class Link extends Model
     public string $href;
 
     #[Config(fillable: true, column: 'sort_order', default: 1)]
-    public ?int $sortOrder;
+    public int $sortOrder;
 
     #[Config(cast: 'datetime', column: 'created_at')]
     public ?Carbon $createdAt;
