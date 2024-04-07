@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Data\LinkData;
 use App\Data\PortfolioData;
-use App\Data\ProjectData;
-use App\Data\ServiceData;
-use App\Data\User\UserData;
 use App\Enums\PortfolioFilter;
 use App\Enums\PortfolioStatusFilter;
 use App\Models\Portfolio;
@@ -17,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
+use Spatie\LaravelData\Exceptions\InvalidDataClass;
 
 class PortfolioController extends Controller
 {
@@ -44,17 +41,14 @@ class PortfolioController extends Controller
             ->where('slug', $slug)
             ->with([
                 'services' => fn (HasMany $query) => $query->active()->orderBy('sort_order'),
-                'links'    => fn (HasMany $query)  => $query->active()->orderBy('sort_order'),
-                'projects' => fn (HasMany $query)  => $query->active()->orderBy('sort_order'),
+                'links'    => fn (HasMany $query) => $query->active()->orderBy('sort_order'),
+                'projects' => fn (HasMany $query) => $query->active()->orderBy('sort_order'),
             ])
             ->firstOrFail();
 
         return inertia('Portfolio/PortfolioPublicItem', [
-            'portfolio' => PortfolioData::from($portfolio),
-            'services' => ServiceData::collect($portfolio->services),
-            'links' => LinkData::collect($portfolio->links),
-            'projects' => ProjectData::collect($portfolio->projects),
-            'user' => UserData::from($user),
+            'portfolio' => $portfolio->getData(),
+            'user' => $user->getData(),
         ]);
     }
 
@@ -65,22 +59,20 @@ class PortfolioController extends Controller
 
     /**
      * @throws AuthorizationException
+     * @throws InvalidDataClass
      */
     public function edit(Portfolio $portfolio): Response
     {
         $this->authorize('update', $portfolio);
 
         $portfolio->load([
-            'services' => fn (HasMany $query) => $query->active()->orderBy('sort_order'),
-            'links' => fn (HasMany $query) => $query->active()->orderBy('sort_order'),
-            'projects' => fn (HasMany $query) => $query->active()->orderBy('sort_order'),
+            'services' => fn (HasMany $query) => $query->orderBy('sort_order'),
+            'links'    => fn (HasMany $query) => $query->orderBy('sort_order'),
+            'projects' => fn (HasMany $query) => $query->orderBy('sort_order'),
         ]);
 
         return inertia('Portfolio/PortfolioItem', [
-            'portfolio' => PortfolioData::from($portfolio),
-            'services' => ServiceData::collect($portfolio->services),
-            'links' => LinkData::collect($portfolio->links),
-            'projects' => ProjectData::collect($portfolio->projects)
+            'portfolio' => $portfolio->getData(),
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Data\PortfolioData;
 use App\Enums\PortfolioStatusFilter;
 use App\Traits\Scopes\SearchFilterScope;
 use Carbon\Carbon;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\LaravelData\WithData;
 use WendellAdriel\Lift\Attributes\Config;
 use WendellAdriel\Lift\Attributes\PrimaryKey;
 use WendellAdriel\Lift\Attributes\Relations\BelongsTo as LiftBelongsTo;
@@ -44,7 +46,7 @@ use WendellAdriel\Lift\Lift;
 #[LiftHasMany(Project::class)]
 class Portfolio extends Model
 {
-    use Lift, HasFactory, SearchFilterScope;
+    use Lift, HasFactory, SearchFilterScope, WithData;
 
     #[PrimaryKey]
     public int $id;
@@ -72,6 +74,8 @@ class Portfolio extends Model
 
     #[Config(cast: 'datetime', column: 'updated_at')]
     public ?Carbon $updatedAt;
+
+    protected string $dataClass = PortfolioData::class;
 
     public function checkIfOwner(User $user): bool
     {

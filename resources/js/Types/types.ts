@@ -49,3 +49,5 @@ export type PortfolioDataPaginated = {
     to: number,
     total: number
 }
+
+export type PortfolioTab = 'main' | 'services' | 'links' | 'projects'

@@ -1,12 +1,11 @@
 <template>
     <div class="d-flex justify-content-between align-items-center">
-        <button
+        <Link
+            href="links/create"
             class="mt-3 mb-3 border-secondary btn btn-light shadow-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#createLinkModal"
         >
             Добавить
-        </button>
+        </Link>
     </div>
 
     <template v-if="links?.length">
@@ -37,15 +36,7 @@
                         <i v-else class="lni lni-ban text-secondary fs-5 shadow-sm"></i>
                     </td>
                     <td style="width: 150px">
-                        <div class="d-flex gap-3 justify-content-center align-items-center">
-                            <div class="d-flex align-items-center gap-1">
-                                <i @click="decreaseOrder(item)" role="button" class="bg-light shadow-sm text-dark p-2 rounded-3 lni lni-chevron-up"></i>
-                                <i @click="increaseOrder(item)" role="button" class="cursor-pointer bg-light shadow-sm text-dark p-2 rounded-3 lni lni-chevron-down"></i>
-                            </div>
-                            <Link as="button" method="DELETE" class="border-0 bg-transparent" :href="`/links/${item.id}`">
-                                <i class="bg-danger shadow-sm text-light p-2 rounded-3 lni lni-trash-can"></i>
-                            </Link>
-                        </div>
+                        <ManageButtons item-root-link="links" :item="item" />
                     </td>
                 </tr>
                 </tbody>
@@ -55,8 +46,6 @@
     <template v-else>
         <span class="text-secondary">Список услуг пуст.</span>
     </template>
-
-    <CreateLinkModal :portfolio-id="portfolioId" />
 </template>
 
 <script lang="ts" setup>
@@ -64,7 +53,7 @@ import { defineProps, PropType } from 'vue';
 import { formatDate } from "../../../Helpers/helpers";
 import { Link, useForm } from "@inertiajs/vue3";
 import LinkData = App.Data.LinkData;
-import CreateLinkModal from "../Modals/CreateLinkModal.vue";
+import ManageButtons from "./ManageButtons.vue";
 
 const props = defineProps({
     links: {

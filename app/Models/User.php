@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Data\User\UserData;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\LaravelData\WithData;
 use WendellAdriel\Lift\Attributes\Config;
 use WendellAdriel\Lift\Attributes\PrimaryKey;
 use WendellAdriel\Lift\Attributes\Relations\HasMany as LiftHasMany;
@@ -29,7 +31,7 @@ use WendellAdriel\Lift\Lift;
 #[LiftHasMany(Service::class)]
 class User extends Authenticatable
 {
-    use Lift, HasApiTokens, HasFactory, Notifiable;
+    use Lift, HasApiTokens, HasFactory, Notifiable, WithData;
 
     #[PrimaryKey]
     public int $id;
@@ -57,6 +59,8 @@ class User extends Authenticatable
 
     #[Config(cast: 'datetime', column: 'updated_at')]
     public ?Carbon $updatedAt;
+
+    protected string $dataClass = UserData::class;
 
     public static function suggestUsername(): string
     {

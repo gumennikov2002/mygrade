@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Data\ProjectData;
 use App\Traits\Scopes\ActiveScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\LaravelData\WithData;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use WendellAdriel\Lift\Attributes\Config;
@@ -27,7 +29,7 @@ use WendellAdriel\Lift\Lift;
 #[IgnoreProperties('mediaConversions', 'mediaCollections')]
 class Project extends PortfolioItem implements HasMedia
 {
-    use HasFactory, Lift, InteractsWithMedia, ActiveScope;
+    use HasFactory, Lift, InteractsWithMedia, ActiveScope, WithData;
 
     #[PrimaryKey]
     public int $id;
@@ -52,6 +54,8 @@ class Project extends PortfolioItem implements HasMedia
 
     #[Config(cast: 'datetime', column: 'updated_at')]
     public ?Carbon $updatedAt;
+
+    protected string $dataClass = ProjectData::class;
 
     public static function validationRules(): array
     {

@@ -10,7 +10,7 @@ updatedAt?: string | null;
 createdAt?: string | null;
 };
 export type PortfolioData = {
-id?: number;
+id?: number | null;
 isActive: boolean;
 slug: string;
 title: string;
@@ -18,6 +18,12 @@ aboutMe: string;
 description: string | null;
 createdAt?: string | null;
 updatedAt?: string | null;
+services?: Array<App.Data.ServiceData> | null;
+projects?: Array<App.Data.ProjectData> | null;
+links?: Array<App.Data.LinkData> | null;
+};
+export type ProjectCoverData = {
+cover: any;
 };
 export type ProjectData = {
 id?: number | null;

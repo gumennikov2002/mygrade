@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Data\LinkData;
 use App\Models\Link;
+use App\Models\Portfolio;
 use App\Services\PortfolioLinkManagementService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Inertia\Response as InertiaResponse;
+use Spatie\LaravelData\Exceptions\InvalidDataClass;
 
 class LinkController extends Controller
 {
@@ -15,7 +18,17 @@ class LinkController extends Controller
         protected PortfolioLinkManagementService $service
     ) {}
 
-    public function store(Request $request): RedirectResponse
+    /**
+     * @throws InvalidDataClass
+     */
+    public function create(Portfolio $portfolio): InertiaResponse
+    {
+        return inertia('Link/LinkItem', [
+            'portfolio' => $portfolio->getData(),
+        ]);
+    }
+
+    public function store(Portfolio $portfolio, Request $request): RedirectResponse
     {
         $link = $this->service->create(
             LinkData::from($request)
@@ -26,7 +39,18 @@ class LinkController extends Controller
         ]);
     }
 
-    public function update(Request $request, Link $link): RedirectResponse
+    /**
+     * @throws InvalidDataClass
+     */
+    public function edit(Portfolio $portfolio, Link $link): InertiaResponse
+    {
+        return inertia('Link/LinkItem', [
+            'portfolio' => $portfolio->getData(),
+            'link'   => $link->getData(),
+        ]);
+    }
+
+    public function update(Request $request, Portfolio $portfolio, Link $link): RedirectResponse
     {
         $this->service->update(
             $link,
@@ -38,7 +62,7 @@ class LinkController extends Controller
         ]);
     }
 
-    public function destroy(Link $link): void
+    public function destroy(Portfolio $portfolio, Link $link): void
     {
         $this->service->delete($link);
     }

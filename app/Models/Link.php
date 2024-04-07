@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Data\LinkData;
 use App\Traits\Scopes\ActiveScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\LaravelData\WithData;
 use WendellAdriel\Lift\Attributes\Config;
 use WendellAdriel\Lift\Attributes\PrimaryKey;
 use WendellAdriel\Lift\Attributes\Relations\BelongsTo as LiftBelongsTo;
@@ -22,7 +24,7 @@ use WendellAdriel\Lift\Lift;
 #[LiftBelongsTo(Portfolio::class)]
 class Link extends PortfolioItem
 {
-    use HasFactory, Lift, ActiveScope;
+    use HasFactory, Lift, ActiveScope, WithData;
 
     #[PrimaryKey]
     public int $id;
@@ -47,6 +49,8 @@ class Link extends PortfolioItem
 
     #[Config(cast: 'datetime', column: 'updated_at')]
     public ?Carbon $updatedAt;
+
+    protected string $dataClass = LinkData::class;
 
     public static function validationRules(): array
     {

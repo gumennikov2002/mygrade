@@ -45,6 +45,7 @@ class PortfolioManagementService
                 $status = PortfolioStatusFilter::from($filters['status']);
                 $query->filterStatus($status);
             })
+            ->with(['services', 'projects', 'links'])
             ->orderBy($orderBy, $orderDirection)
             ->paginate($perPage)
             ->withQueryString();

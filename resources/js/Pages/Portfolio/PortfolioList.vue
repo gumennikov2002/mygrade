@@ -41,6 +41,9 @@
                         <th scope="col" class="text-center">ID</th>
                         <th scope="col">Название</th>
                         <th scope="col">Описание</th>
+                        <th scope="col">Услуг</th>
+                        <th scope="col">Работ</th>
+                        <th scope="col">Ссылок</th>
                         <th scope="col">Создано</th>
                         <th scope="col">Изменено</th>
                         <th scope="col" class="text-center">Активно</th>
@@ -49,11 +52,14 @@
                     </thead>
                     <tbody>
                     <tr v-for="item in portfolios.data">
-                        <th scope="row" class="text-center">{{ item.id }}</th>
+                        <th scope="row" class="text-center" v-html="item.id" />
                         <td v-html="textHighlight(item.title)" />
                         <td>
                             <div class="description-truncate" v-html="textHighlight(item.description)" />
                         </td>
+                        <td class="text-center" v-html="item.services.length" />
+                        <td class="text-center" v-html="item.projects.length" />
+                        <td class="text-center" v-html="item.links.length" />
                         <td v-html="formatDate(item.createdAt)" />
                         <td v-html="formatDate(item.updatedAt)" />
                         <td class="text-center">

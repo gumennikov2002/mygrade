@@ -36,7 +36,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::resource('portfolios', PortfolioController::class);
-    Route::resource('services', ServiceController::class)->only(['store', 'update', 'destroy']);
-    Route::resource('links', LinkController::class)->only(['store', 'update', 'destroy']);
-    Route::resource('projects', ProjectController::class)->only(['store', 'update', 'destroy']);
+    Route::resource('portfolios/{portfolio}/services', ServiceController::class)->except(['index']);
+    Route::resource('portfolios/{portfolio}/links', LinkController::class)->except(['index']);
+    Route::resource('portfolios/{portfolio}/projects', ProjectController::class)->except(['index']);
+    Route::post('portfolios/{portfolio}/projects/{project}/cover', [ProjectController::class, 'updateCover'])->name('portfolios.cover');
 });

@@ -32,21 +32,21 @@
                 </p>
             </ContentCard>
 
-            <ContentCard v-if="projects?.length" class="pb-5" id="works" title="Работы">
+            <ContentCard v-if="portfolio.projects?.length" class="pb-5" id="works" title="Работы">
                 <div class="d-flex flex-wrap gap-3">
-                    <ProjectCard width="40rem" :project="item" v-for="item in projects" />
+                    <ProjectCard width="40rem" :project="item" v-for="item in portfolio.projects" />
                 </div>
             </ContentCard>
 
-            <ContentCard v-if="services?.length" class="pb-5" id="services" title="Услуги">
+            <ContentCard v-if="portfolio.services?.length" class="pb-5" id="services" title="Услуги">
                 <div class="d-flex flex-column gap-3">
-                    <ServiceCard v-for="item in services" :service="item" />
+                    <ServiceCard v-for="item in portfolio.services" :service="item" />
                 </div>
             </ContentCard>
 
-            <ContentCard v-if="links?.length" class="pb-5" id="links" title="Ссылки">
+            <ContentCard v-if="portfolio.links?.length" class="pb-5" id="links" title="Ссылки">
                 <div class="d-flex gap-4">
-                    <a v-for="item in links" :href="item.href" target="_blank">{{ item.label }}</a>
+                    <a v-for="item in portfolio.links" :href="item.href" target="_blank">{{ item.label }}</a>
                 </div>
             </ContentCard>
         </div>
@@ -75,27 +75,12 @@ import { defineProps, PropType, ref } from 'vue';
 import { Head } from "@inertiajs/vue3";
 import PortfolioData = App.Data.PortfolioData;
 import UserData = App.Data.User.UserData;
-import ServiceData = App.Data.ServiceData;
-import LinkData = App.Data.LinkData;
-import ProjectData = App.Data.ProjectData;
 import ProjectCard from "../../Components/Portfolio/ProjectCard.vue";
 
 const props = defineProps({
     portfolio: {
         type: Object as PropType<PortfolioData>,
         required: true
-    },
-    services: {
-        type: Object as PropType<ServiceData[]>,
-        required: false
-    },
-    links: {
-        type: Object as PropType<LinkData[]>,
-        required: false
-    },
-    projects: {
-        type: Object as PropType<ProjectData[]>,
-        required: false
     },
     user: {
         type: Object as PropType<UserData>,

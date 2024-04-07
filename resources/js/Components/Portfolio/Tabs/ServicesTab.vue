@@ -1,12 +1,11 @@
 <template>
     <div class="d-flex justify-content-between align-items-center">
-        <button
+        <Link
+            href="services/create"
             class="mt-3 mb-3 border-secondary btn btn-light shadow-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#createServiceModal"
         >
             Добавить
-        </button>
+        </Link>
     </div>
 
     <template v-if="services?.length">
@@ -39,15 +38,7 @@
                         <i v-else class="lni lni-ban text-secondary fs-5 shadow-sm"></i>
                     </td>
                     <td style="width: 150px">
-                        <div class="d-flex gap-3 justify-content-center align-items-center">
-                            <div class="d-flex align-items-center gap-1">
-                                <i @click="decreaseOrder(item)" role="button" class="bg-light shadow-sm text-dark p-2 rounded-3 lni lni-chevron-up"></i>
-                                <i @click="increaseOrder(item)" role="button" class="cursor-pointer bg-light shadow-sm text-dark p-2 rounded-3 lni lni-chevron-down"></i>
-                            </div>
-                            <Link as="button" method="DELETE" class="border-0 bg-transparent" :href="`/services/${item.id}`">
-                                <i class="bg-danger shadow-sm text-light p-2 rounded-3 lni lni-trash-can"></i>
-                            </Link>
-                        </div>
+                        <ManageButtons item-root-link="services" :item="item" />
                     </td>
                 </tr>
                 </tbody>
@@ -57,8 +48,6 @@
     <template v-else>
         <span class="text-secondary">Список услуг пуст.</span>
     </template>
-
-    <CreateServiceModal :portfolio-id="portfolioId" />
 </template>
 
 <script lang="ts" setup>
@@ -66,7 +55,7 @@ import { defineProps, PropType } from 'vue';
 import ServiceData = App.Data.ServiceData;
 import { formatCurrency, formatDate } from "../../../Helpers/helpers";
 import { Link, useForm } from "@inertiajs/vue3";
-import CreateServiceModal from "../Modals/CreateServiceModal.vue";
+import ManageButtons from "./ManageButtons.vue";
 
 const props = defineProps({
     services: {
