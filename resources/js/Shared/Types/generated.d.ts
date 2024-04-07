@@ -25,6 +25,8 @@ portfolioId: number;
 isActive: boolean;
 title: string;
 description: string | null;
+cover?: any | string | null;
+media?: Array<any> | null;
 sortOrder: number;
 createdAt?: string | null;
 updatedAt?: string | null;

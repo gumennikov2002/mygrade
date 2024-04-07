@@ -42,7 +42,7 @@
                                 <i @click="decreaseOrder(item)" role="button" class="bg-light shadow-sm text-dark p-2 rounded-3 lni lni-chevron-up"></i>
                                 <i @click="increaseOrder(item)" role="button" class="cursor-pointer bg-light shadow-sm text-dark p-2 rounded-3 lni lni-chevron-down"></i>
                             </div>
-                            <Link as="button" method="DELETE" class="border-0 bg-transparent" :href="`/links/${item.id}`">
+                            <Link as="button" method="DELETE" class="border-0 bg-transparent" :href="`/projects/${item.id}`">
                                 <i class="bg-danger shadow-sm text-light p-2 rounded-3 lni lni-trash-can"></i>
                             </Link>
                         </div>

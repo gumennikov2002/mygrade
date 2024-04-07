@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.8",
         "spatie/enum": "^3.13",
         "spatie/laravel-data": "^4.3",
+        "spatie/laravel-medialibrary": "^11.4",
         "spatie/laravel-typescript-transformer": "^2.4",
         "wendelladriel/laravel-lift": "^0.14.0"
     },

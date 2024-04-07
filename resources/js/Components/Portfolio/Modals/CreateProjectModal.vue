@@ -20,6 +20,19 @@
                         <span class="text-danger" v-if="form.errors.isActive">{{ form.errors.isActive }}</span>
                     </div>
                     <div class="mb-3">
+                        <label for="cover" class="form-label">
+                            Обложка
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input
+                            @input="form.cover = $event.target.files[0]"
+                            type="file"
+                            class="form-control"
+                            id="cover"
+                        >
+                        <span class="text-danger" v-if="form.errors.cover">{{ form.errors.cover }}</span>
+                    </div>
+                    <div class="mb-3">
                         <label for="title" class="form-label">
                             Название
                             <span class="text-danger">*</span>
@@ -74,6 +87,7 @@ const form = useForm<ProjectData>({
     isActive: true,
     title: null,
     description: null,
+    cover: null,
     sortOrder: 1,
 });
 

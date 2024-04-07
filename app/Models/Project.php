@@ -4,9 +4,13 @@ namespace App\Models;
 
 use App\Traits\Scopes\ActiveScope;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use WendellAdriel\Lift\Attributes\Config;
+use WendellAdriel\Lift\Attributes\IgnoreProperties;
 use WendellAdriel\Lift\Attributes\PrimaryKey;
 use WendellAdriel\Lift\Attributes\Relations\BelongsTo as LiftBelongsTo;
 use WendellAdriel\Lift\Lift;
@@ -20,9 +24,10 @@ use WendellAdriel\Lift\Lift;
  * @method static BelongsTo portfolio()
  */
 #[LiftBelongsTo(Portfolio::class)]
-class Project extends PortfolioItem
+#[IgnoreProperties('mediaConversions', 'mediaCollections')]
+class Project extends PortfolioItem implements HasMedia
 {
-    use HasFactory, Lift, ActiveScope;
+    use HasFactory, Lift, InteractsWithMedia, ActiveScope;
 
     #[PrimaryKey]
     public int $id;
@@ -64,5 +69,12 @@ class Project extends PortfolioItem
             'title.min' => 'Поле "Заголовок" должно содержать более :min символов',
             'title.max' => 'Поле "Заголовок" должно содержать не более :max символов',
         ];
+    }
+
+    public function cover(): Attribute
+    {
+        return Attribute::make(
+            get: fn(): ?string => $this->getFirstMedia('cover')?->getUrl(),
+        );
     }
 }

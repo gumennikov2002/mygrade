@@ -179,7 +179,13 @@ class PortfolioService
      */
     public function newProject(ProjectData $data): Project
     {
-        return Project::query()->create($data->toArray());
+        $project = Project::query()->create(
+            $data->toArray()
+        );
+
+        $project->addMediaFromRequest('cover')->toMediaCollection('cover');
+
+        return $project;
     }
 
     /**
