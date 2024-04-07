@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Contracts\UserService;
 use App\Data\Auth\RegisterUserData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 

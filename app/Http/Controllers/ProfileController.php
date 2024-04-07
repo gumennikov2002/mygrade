@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\UserService;
 use App\Data\User\UpdateUserData;
 use App\Http\Requests\Profile\UpdateUserRequest;
+use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 

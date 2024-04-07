@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Contracts\PortfolioService;
 use App\Data\LinkData;
 use App\Data\PortfolioData;
 use App\Data\ProjectData;
@@ -16,7 +15,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\AbstractPaginator;
 
-class AppPortfolioService implements PortfolioService
+class PortfolioService
 {
 
     /**

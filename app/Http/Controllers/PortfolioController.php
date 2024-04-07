@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\PortfolioService;
 use App\Data\LinkData;
 use App\Data\PortfolioData;
 use App\Data\ProjectData;
@@ -12,6 +11,7 @@ use App\Enums\PortfolioFilter;
 use App\Enums\PortfolioStatusFilter;
 use App\Models\Portfolio;
 use App\Models\User;
+use App\Services\PortfolioService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;

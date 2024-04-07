@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\PortfolioService;
 use App\Data\ServiceData;
 use App\Models\Service;
+use App\Services\PortfolioService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 

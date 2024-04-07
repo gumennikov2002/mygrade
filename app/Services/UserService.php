@@ -2,12 +2,11 @@
 
 namespace App\Services;
 
-use App\Contracts\UserService;
 use App\Data\Auth\RegisterUserData;
 use App\Data\User\UpdateUserData;
 use App\Models\User;
 
-class AppUserService implements UserService
+class UserService
 {
 
     /**
