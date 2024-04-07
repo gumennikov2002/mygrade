@@ -11,7 +11,7 @@ use App\Enums\PortfolioFilter;
 use App\Enums\PortfolioStatusFilter;
 use App\Models\Portfolio;
 use App\Models\User;
-use App\Services\PortfolioService;
+use App\Services\PortfolioManagementService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
@@ -21,7 +21,7 @@ use Inertia\Response;
 class PortfolioController extends Controller
 {
     public function __construct(
-        protected PortfolioService $service
+        protected PortfolioManagementService $service
     ) {}
 
     public function index(Request $request): Response
@@ -44,7 +44,7 @@ class PortfolioController extends Controller
             ->where('slug', $slug)
             ->with([
                 'services' => fn (HasMany $query) => $query->active()->orderBy('sort_order'),
-                'links' => fn (HasMany $query)  => $query->active()->orderBy('sort_order'),
+                'links'    => fn (HasMany $query)  => $query->active()->orderBy('sort_order'),
                 'projects' => fn (HasMany $query)  => $query->active()->orderBy('sort_order'),
             ])
             ->firstOrFail();
@@ -86,7 +86,7 @@ class PortfolioController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $this->service->newPortfolio(
+        $this->service->create(
             $request->user(),
             PortfolioData::from($request)
         );
@@ -96,7 +96,7 @@ class PortfolioController extends Controller
 
     public function update(Portfolio $portfolio, Request $request): RedirectResponse
     {
-        $this->service->updatePortfolio(
+        $this->service->update(
             $portfolio,
             PortfolioData::from($request)
         );
@@ -108,6 +108,6 @@ class PortfolioController extends Controller
 
     public function destroy(Portfolio $portfolio): void
     {
-        $this->service->deletePortfolio($portfolio);
+        $this->service->delete($portfolio);
     }
 }

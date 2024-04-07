@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Data\ProjectData;
 use App\Models\Project;
-use App\Services\PortfolioService;
+use App\Services\PortfolioProjectManagementService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
     public function __construct(
-        protected PortfolioService $service
+        protected PortfolioProjectManagementService $service
     ) {}
 
     public function store(Request $request): RedirectResponse
     {
-        $project = $this->service->newProject(
+        $project = $this->service->create(
             ProjectData::from($request)
         );
 
@@ -27,7 +27,7 @@ class ProjectController extends Controller
 
     public function update(Request $request, Project $project): RedirectResponse
     {
-        $this->service->updateProject(
+        $this->service->update(
             $project,
             ProjectData::from($request)
         );
@@ -39,6 +39,6 @@ class ProjectController extends Controller
 
     public function destroy(Project $project): void
     {
-        $this->service->deleteProject($project);
+        $this->service->delete($project);
     }
 }

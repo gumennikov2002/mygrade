@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Data\ServiceData;
 use App\Models\Service;
-use App\Services\PortfolioService;
+use App\Services\PortfolioServiceManagementService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -12,12 +12,12 @@ class ServiceController extends Controller
 {
 
     public function __construct(
-        protected PortfolioService $service
+        protected PortfolioServiceManagementService $service
     ) {}
 
     public function store(Request $request): RedirectResponse
     {
-        $service = $this->service->newService(
+        $service = $this->service->create(
             ServiceData::from($request)
         );
 
@@ -28,7 +28,7 @@ class ServiceController extends Controller
 
     public function update(Request $request, Service $service): RedirectResponse
     {
-        $this->service->updateService(
+        $this->service->update(
             $service,
             ServiceData::from($request)
         );
@@ -40,6 +40,6 @@ class ServiceController extends Controller
 
     public function destroy(Service $service): void
     {
-        $this->service->deleteService($service);
+        $this->service->delete($service);
     }
 }
